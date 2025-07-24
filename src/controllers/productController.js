@@ -1,0 +1,561 @@
+const Product = require('../models/Product');
+const { uploadImage, deleteImage, deleteMultipleImages } = require('../config/cloudinary');
+
+// Get all products with filtering and pagination
+const getProducts = async (req, res) => {
+  try {
+    const {
+      page = 1,
+      limit = 12,
+      category,
+      colors,
+      sizes,
+      minPrice,
+      maxPrice,
+      inStock,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      search
+    } = req.query;
+
+    // Build filter object
+    const filter = { isActive: true };
+    
+    if (category) {
+      filter['catalog.category'] = { $regex: category, $options: 'i' };
+    }
+    
+    if (colors) {
+      const colorArray = Array.isArray(colors) ? colors : [colors];
+      filter['colors.name'] = { $in: colorArray.map(c => new RegExp(c, 'i')) };
+    }
+    
+    if (sizes) {
+      const sizeArray = Array.isArray(sizes) ? sizes : [sizes];
+      filter['sizes.name'] = { $in: sizeArray.map(s => new RegExp(s, 'i')) };
+    }
+    
+    if (minPrice || maxPrice) {
+      filter['price.amount'] = {};
+      if (minPrice) filter['price.amount'].$gte = parseFloat(minPrice);
+      if (maxPrice) filter['price.amount'].$lte = parseFloat(maxPrice);
+    }
+    
+    if (inStock === 'true') {
+      filter['availability.inStock'] = true;
+      filter['availability.quantity'] = { $gt: 0 };
+    }
+    
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { 'catalog.catalogNumber': { $regex: search, $options: 'i' } },
+        { 'catalog.tags': { $in: [new RegExp(search, 'i')] } }
+      ];
+    }
+
+    // Create sort object
+    const sort = {};
+    sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const products = await Product.find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(parseInt(limit))
+      .select('-__v');
+
+    const total = await Product.countDocuments(filter);
+
+    res.json({
+      success: true,
+      data: {
+        products,
+        pagination: {
+          page: parseInt(page),
+          limit: parseInt(limit),
+          total,
+          pages: Math.ceil(total / parseInt(limit))
+        },
+        filters: {
+          category,
+          colors,
+          sizes,
+          minPrice,
+          maxPrice,
+          inStock,
+          search
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Get products error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch products'
+    });
+  }
+};
+
+// Get product by ID
+const getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findOne({ _id: id, isActive: true });
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    res.json({
+      success: true,
+      data: product
+    });
+
+  } catch (error) {
+    console.error('Get product by ID error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch product'
+    });
+  }
+};
+
+// Get featured products
+const getFeaturedProducts = async (req, res) => {
+  try {
+    const { limit = 6 } = req.query;
+
+    // For now, get latest products as featured
+    // You can add a 'featured' field to Product model later
+    const products = await Product.find({ 
+      isActive: true,
+      'availability.inStock': true 
+    })
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit))
+      .select('-__v');
+
+    res.json({
+      success: true,
+      data: products
+    });
+
+  } catch (error) {
+    console.error('Get featured products error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch featured products'
+    });
+  }
+};
+
+// Get all categories
+const getCategories = async (req, res) => {
+  try {
+    const categories = await Product.distinct('catalog.category', { isActive: true });
+
+    res.json({
+      success: true,
+      data: categories.filter(Boolean)
+    });
+
+  } catch (error) {
+    console.error('Get categories error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch categories'
+    });
+  }
+};
+
+// Get available colors
+const getAvailableColors = async (req, res) => {
+  try {
+    const colors = await Product.aggregate([
+      { $match: { isActive: true } },
+      { $unwind: '$colors' },
+      { 
+        $group: {
+          _id: {
+            name: '$colors.name',
+            hexCode: '$colors.hexCode'
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          name: '$_id.name',
+          hexCode: '$_id.hexCode'
+        }
+      },
+      { $sort: { name: 1 } }
+    ]);
+
+    res.json({
+      success: true,
+      data: colors
+    });
+
+  } catch (error) {
+    console.error('Get available colors error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch available colors'
+    });
+  }
+};
+
+// Get available sizes
+const getAvailableSizes = async (req, res) => {
+  try {
+    const sizes = await Product.aggregate([
+      { $match: { isActive: true } },
+      { $unwind: '$sizes' },
+      { 
+        $group: {
+          _id: {
+            name: '$sizes.name',
+            code: '$sizes.code'
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          name: '$_id.name',
+          code: '$_id.code'
+        }
+      },
+      { $sort: { name: 1 } }
+    ]);
+
+    res.json({
+      success: true,
+      data: sizes
+    });
+
+  } catch (error) {
+    console.error('Get available sizes error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch available sizes'
+    });
+  }
+};
+
+// Search products
+const searchProducts = async (req, res) => {
+  try {
+    const { search, limit = 20 } = req.query;
+
+    if (!search) {
+      return res.status(400).json({
+        success: false,
+        message: 'Search term is required'
+      });
+    }
+
+    const products = await Product.find({
+      isActive: true,
+      $or: [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { 'catalog.catalogNumber': { $regex: search, $options: 'i' } },
+        { 'catalog.tags': { $in: [new RegExp(search, 'i')] } }
+      ]
+    })
+      .limit(parseInt(limit))
+      .select('-__v');
+
+    res.json({
+      success: true,
+      data: products,
+      searchTerm: search
+    });
+
+  } catch (error) {
+    console.error('Search products error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to search products'
+    });
+  }
+};
+
+// Get products by category
+const getProductsByCategory = async (req, res) => {
+  try {
+    const { category, limit = 12, page = 1 } = req.query;
+
+    if (!category) {
+      return res.status(400).json({
+        success: false,
+        message: 'Category is required'
+      });
+    }
+
+    const filter = {
+      isActive: true,
+      'catalog.category': { $regex: category, $options: 'i' }
+    };
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const products = await Product.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .select('-__v');
+
+    const total = await Product.countDocuments(filter);
+
+    res.json({
+      success: true,
+      data: {
+        products,
+        category,
+        pagination: {
+          page: parseInt(page),
+          limit: parseInt(limit),
+          total,
+          pages: Math.ceil(total / parseInt(limit))
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Get products by category error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch products by category'
+    });
+  }
+};
+
+// Create product (admin)
+const createProduct = async (req, res) => {
+  try {
+    const productData = req.body;
+    
+    // Process uploaded images
+    if (req.files && req.files.length > 0) {
+      const gallery = [];
+      
+      for (let i = 0; i < req.files.length; i++) {
+        const file = req.files[i];
+        try {
+          const uploadResult = await uploadImage(
+            file.buffer,
+            {
+              folder: 'nissal/products',
+              transformation: [
+                { quality: 'auto:good' },
+                { fetch_format: 'auto' }
+              ]
+            }
+          );
+          
+          gallery.push({
+            url: uploadResult.secure_url,
+            publicId: uploadResult.public_id,
+            alt: productData.title || 'Product image',
+            isMain: i === 0
+          });
+        } catch (uploadError) {
+          console.error('Image upload error:', uploadError);
+        }
+      }
+      
+      productData.gallery = gallery;
+    }
+
+    // Parse JSON fields if they come as strings
+    if (typeof productData.measurements === 'string') {
+      productData.measurements = JSON.parse(productData.measurements);
+    }
+    if (typeof productData.catalog === 'string') {
+      productData.catalog = JSON.parse(productData.catalog);
+    }
+    if (typeof productData.colors === 'string') {
+      productData.colors = JSON.parse(productData.colors);
+    }
+    if (typeof productData.sizes === 'string') {
+      productData.sizes = JSON.parse(productData.sizes);
+    }
+    if (typeof productData.price === 'string') {
+      productData.price = JSON.parse(productData.price);
+    }
+    if (typeof productData.availability === 'string') {
+      productData.availability = JSON.parse(productData.availability);
+    }
+
+    const product = new Product(productData);
+    const savedProduct = await product.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Product created successfully',
+      data: savedProduct
+    });
+
+  } catch (error) {
+    console.error('Create product error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create product',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+// Update product (admin)
+const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    // Process new uploaded images
+    if (req.files && req.files.length > 0) {
+      const newGallery = [];
+      
+      for (let i = 0; i < req.files.length; i++) {
+        const file = req.files[i];
+        try {
+          const uploadResult = await uploadImage(
+            file.buffer,
+            {
+              folder: 'nissal/products',
+              transformation: [
+                { quality: 'auto:good' },
+                { fetch_format: 'auto' }
+              ]
+            }
+          );
+          
+          newGallery.push({
+            url: uploadResult.secure_url,
+            publicId: uploadResult.public_id,
+            alt: updateData.title || product.title,
+            isMain: i === 0 && (!product.gallery || product.gallery.length === 0)
+          });
+        } catch (uploadError) {
+          console.error('Image upload error:', uploadError);
+        }
+      }
+      
+      // Combine existing and new images
+      updateData.gallery = [...(product.gallery || []), ...newGallery];
+    }
+
+    // Parse JSON fields if they come as strings
+    if (typeof updateData.measurements === 'string') {
+      updateData.measurements = JSON.parse(updateData.measurements);
+    }
+    if (typeof updateData.catalog === 'string') {
+      updateData.catalog = JSON.parse(updateData.catalog);
+    }
+    if (typeof updateData.colors === 'string') {
+      updateData.colors = JSON.parse(updateData.colors);
+    }
+    if (typeof updateData.sizes === 'string') {
+      updateData.sizes = JSON.parse(updateData.sizes);
+    }
+    if (typeof updateData.price === 'string') {
+      updateData.price = JSON.parse(updateData.price);
+    }
+    if (typeof updateData.availability === 'string') {
+      updateData.availability = JSON.parse(updateData.availability);
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true, runValidators: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Product updated successfully',
+      data: updatedProduct
+    });
+
+  } catch (error) {
+    console.error('Update product error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update product'
+    });
+  }
+};
+
+// Delete product (admin)
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    // Delete images from Cloudinary
+    if (product.gallery && product.gallery.length > 0) {
+      const publicIds = product.gallery.map(img => img.publicId).filter(Boolean);
+      if (publicIds.length > 0) {
+        try {
+          await deleteMultipleImages(publicIds);
+        } catch (deleteError) {
+          console.error('Images deletion error:', deleteError);
+        }
+      }
+    }
+
+    await Product.findByIdAndDelete(id);
+
+    res.json({
+      success: true,
+      message: 'Product deleted successfully'
+    });
+
+  } catch (error) {
+    console.error('Delete product error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete product'
+    });
+  }
+};
+
+module.exports = {
+  getProducts,
+  getProductById,
+  getFeaturedProducts,
+  getCategories,
+  getAvailableColors,
+  getAvailableSizes,
+  searchProducts,
+  getProductsByCategory,
+  createProduct,
+  updateProduct,
+  deleteProduct
+};

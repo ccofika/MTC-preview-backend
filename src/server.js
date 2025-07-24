@@ -37,6 +37,13 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => console.log('Connected to MongoDB'));
 
+// Routes
+const contactRoutes = require('./routes/contact');
+const productRoutes = require('./routes/products');
+
+app.use('/api/contact', contactRoutes);
+app.use('/api/products', productRoutes);
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });

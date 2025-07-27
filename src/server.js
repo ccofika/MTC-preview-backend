@@ -19,7 +19,23 @@ const limiter = rateLimit({
 app.use(helmet());
 app.use(limiter);
 app.use(compression());
-app.use(morgan('combined'));
+
+// Custom morgan logger that filters out noise
+const logFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
+app.use(morgan(logFormat, {
+  skip: function (req, res) {
+    // Skip OPTIONS requests (CORS preflight)
+    if (req.method === 'OPTIONS') return true;
+    
+    // Skip 304 Not Modified responses
+    if (res.statusCode === 304) return true;
+    
+    // Skip health check requests
+    if (req.url === '/api/health') return true;
+    
+    return false;
+  }
+}));
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true
@@ -28,29 +44,45 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/nissal', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/nissal');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => console.log('Connected to MongoDB'));
 
 // Routes
+const authRoutes = require('./routes/auth');
 const contactRoutes = require('./routes/contact');
 const productRoutes = require('./routes/products');
+const projectRoutes = require('./routes/projects');
+const auth = require('./middleware/auth');
 
+app.use('/api/auth', authRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/projects', projectRoutes);
+
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Graceful shutdown
+const gracefulShutdown = () => {
+  console.log('Shutting down gracefully...');
+  
+  server.close(() => {
+    console.log('Process terminated');
+    process.exit(0);
+  });
+};
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
 
 module.exports = app;

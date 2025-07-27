@@ -30,99 +30,292 @@ const clearDatabase = async () => {
 const seedProducts = async () => {
   const mockProducts = [
     {
-      title: "Luksuzni Kožni Fotelja Milano",
-      description: "Elegantna kožna fotelja ručno izrađena od najkvalitetnije italijanske kože. Perfect za moderne dnevne sobe i kancelarije. Ergonomski dizajn pruža maksimalnu udobnost.",
-      gallery: [
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/products/fotelja-milano-1.jpg",
-          publicId: "nissal/products/fotelja-milano-1",
-          alt: "Milano fotelja - glavni pogled",
-          isMain: true
-        },
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/products/fotelja-milano-2.jpg",
-          publicId: "nissal/products/fotelja-milano-2", 
-          alt: "Milano fotelja - bočni pogled"
-        }
-      ],
+      title: "ALS 57 - Aluminijumski Sistem",
+      description: "Visokokvalitetni aluminijumski profili za prozore i vrata. Sistem ALS 57 omogućava izuzetnu termičku izolaciju i dugotrajnost. Idealan za stambene i komercijalne objekte.",
+      gallery: [],
       measurements: [
         {
-          size: "Standard",
+          size: "Standardni profil",
           dimensions: {
-            length: 85,
-            width: 90,
-            height: 105,
-            weight: 35
+            length: 6000,
+            width: 57,
+            height: 57,
+            weight: 1.85
+          }
+        },
+        {
+          size: "Ojačani profil", 
+          dimensions: {
+            length: 6000,
+            width: 57,
+            height: 70,
+            weight: 2.1
           }
         }
       ],
       catalog: {
-        catalogNumber: "NIS-FOT-001",
-        category: "Fotelje",
-        subcategory: "Kožne fotelje",
-        tags: ["luksuz", "koža", "udobnost", "moderna"]
+        catalogNumber: "ALS-057",
+        category: "Prozorski sistemi",
+        subcategory: "Standardni profili",
+        tags: ["prozori", "vrata", "termička izolacija", "aluminijum"]
       },
       colors: [
-        { name: "Tamno braon", hexCode: "#3C2415", available: true },
-        { name: "Crna", hexCode: "#000000", available: true },
-        { name: "Krem", hexCode: "#F5F5DC", available: false }
+        { name: "Bela RAL 9016", hexCode: "#F6F6F6", available: true },
+        { name: "Antracit RAL 7016", hexCode: "#383E42", available: true },
+        { name: "Braon RAL 8017", hexCode: "#45322E", available: true },
+        { name: "Zlatni hrast", hexCode: "#B8860B", available: false }
       ],
       sizes: [
-        { name: "Standard", code: "STD", available: true }
+        { name: "Standardni 57mm", code: "STD57", available: true },
+        { name: "Ojačani 70mm", code: "REI70", available: true }
       ],
       price: {
-        amount: 125000,
+        amount: 2500,
         currency: "RSD"
       },
       availability: {
         inStock: true,
-        quantity: 15
+        quantity: 50
       }
     },
     {
-      title: "Moderni Trosed Roma",
-      description: "Savremeni trosed sa čistim linijama i visokoukvalitetnim tekstilom. Idealan za moderne domove. Dostupan u različitim bojama i veličinama.",
-      gallery: [
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/products/trosed-roma-1.jpg",
-          publicId: "nissal/products/trosed-roma-1",
-          alt: "Roma trosed - glavni pogled",
-          isMain: true
-        },
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/products/trosed-roma-2.jpg",
-          publicId: "nissal/products/trosed-roma-2",
-          alt: "Roma trosed - detalj"
-        }
-      ],
+      title: "ALS 4800 - Prozorski Sistem",
+      description: "Napredni aluminijumski sistem za velike staklene površine. ALS 4800 pruža vrhunsku termičku izolaciju i strukturalnu čvrstoću. Pogidan za moderne arhitektonske rešenja.",
+      gallery: [],
       measurements: [
         {
-          size: "Trosed",
+          size: "Osnovni ram",
           dimensions: {
-            length: 200,
-            width: 85,
+            length: 6000,
+            width: 48,
+            height: 80,
+            weight: 2.3
+          }
+        },
+        {
+          size: "Krilo prozora",
+          dimensions: {
+            length: 6000,
+            width: 48,
+            height: 65,
+            weight: 1.95
+          }
+        }
+      ],
+      catalog: {
+        catalogNumber: "ALS-4800",
+        category: "Prozorski sistemi",
+        subcategory: "Veliki otvori",
+        tags: ["veliki otvori", "termička izolacija", "moderna arhitektura", "strukturalno ostakljenje"]
+      },
+      colors: [
+        { name: "Bela RAL 9016", hexCode: "#F6F6F6", available: true },
+        { name: "Antracit RAL 7016", hexCode: "#383E42", available: true },
+        { name: "Crna RAL 9005", hexCode: "#0A0A0A", available: true },
+        { name: "Eloxirani aluminijum", hexCode: "#C0C0C0", available: true }
+      ],
+      sizes: [
+        { name: "Ram 48x80mm", code: "FR4880", available: true },
+        { name: "Krilo 48x65mm", code: "WG4865", available: true }
+      ],
+      price: {
+        amount: 3200,
+        currency: "RSD"
+      },
+      availability: {
+        inStock: true,
+        quantity: 35
+      }
+    },
+    {
+      title: "ALT 7500 - Toplotno Izolovan Sistem",
+      description: "Visokoenergetski aluminijumski sistem sa prekidom termalnog mosta. ALT 7500 je idealan za pasivne kuće i energetski efikasne zgrade. Omogućava postizanje visokih standarda izolacije.",
+      gallery: [],
+      measurements: [
+        {
+          size: "Ram sa termalnim prekidom",
+          dimensions: {
+            length: 6000,
+            width: 75,
             height: 85,
+            weight: 2.8
+          }
+        },
+        {
+          size: "Krilo sa prekidom",
+          dimensions: {
+            length: 6000,
+            width: 75,
+            height: 70,
+            weight: 2.4
+          }
+        }
+      ],
+      catalog: {
+        catalogNumber: "ALT-7500",
+        category: "Toplotno izolovani sistemi",
+        subcategory: "Visoka energetska efikasnost",
+        tags: ["energetska efikasnost", "termalni prekid", "pasivna kuća", "visoka izolacija"]
+      },
+      colors: [
+        { name: "Bela RAL 9016", hexCode: "#F6F6F6", available: true },
+        { name: "Antracit RAL 7016", hexCode: "#383E42", available: true },
+        { name: "Braon RAL 8017", hexCode: "#45322E", available: true }
+      ],
+      sizes: [
+        { name: "Ram 75x85mm", code: "FR7585", available: true },
+        { name: "Krilo 75x70mm", code: "WG7570", available: true }
+      ],
+      price: {
+        amount: 4500,
+        currency: "RSD"
+      },
+      availability: {
+        inStock: true,
+        quantity: 25
+      }
+    },
+    {
+      title: "ALD 9100 - Aluminijumski Profili",
+      description: "Premium aluminijumski profili za vrhunska rešenja. ALD 9100 pruža izuzetnu čvrstoću i fleksibilnost u dizajnu. Pogidan za luksuzne stambene i komercijalne projekte.",
+      gallery: [],
+      measurements: [
+        {
+          size: "Ram profila",
+          dimensions: {
+            length: 6000,
+            width: 91,
+            height: 91,
+            weight: 3.2
+          }
+        },
+        {
+          size: "Krilo profila",
+          dimensions: {
+            length: 6000,
+            width: 114,
+            height: 75,
+            weight: 3.8
+          }
+        }
+      ],
+      catalog: {
+        catalogNumber: "ALD-9100",
+        category: "Premium profili",
+        subcategory: "Luksuzni sistemi",
+        tags: ["premium", "veliki profili", "luksuz", "fleksibilnost"]
+      },
+      colors: [
+        { name: "Eloxirani prirodni", hexCode: "#C0C0C0", available: true },
+        { name: "Antracit RAL 7016", hexCode: "#383E42", available: true },
+        { name: "Zlatni hrast", hexCode: "#B8860B", available: true },
+        { name: "Crna RAL 9005", hexCode: "#0A0A0A", available: false }
+      ],
+      sizes: [
+        { name: "Ram 91x91mm", code: "FR9191", available: true },
+        { name: "Krilo 114x75mm", code: "WG11475", available: true }
+      ],
+      price: {
+        amount: 5800,
+        currency: "RSD"
+      },
+      availability: {
+        inStock: true,
+        quantity: 18
+      }
+    },
+    {
+      title: "Interior Door System - Unutrašnji Sistem Vrata",
+      description: "Elegantni aluminijumski sistem za unutrašnja vrata. Moderan dizajn sa mogućnostima različitih ispuna - staklo, panel, kombinovano. Idealan za kancelarije, hotele i moderne domove.",
+      gallery: [],
+      measurements: [
+        {
+          size: "Standardna vrata",
+          dimensions: {
+            length: 2100,
+            width: 900,
+            height: 40,
+            weight: 28
+          }
+        },
+        {
+          size: "Dupla vrata",
+          dimensions: {
+            length: 2100,
+            width: 1800,
+            height: 40,
             weight: 45
           }
         }
       ],
       catalog: {
-        catalogNumber: "NIS-TRO-002",
-        category: "Garniture",
-        subcategory: "Trosedi",
-        tags: ["moderno", "tekstil", "udobnost", "porodica"]
+        catalogNumber: "IDS-001",
+        category: "Unutrašnja vrata",
+        subcategory: "Aluminijumski sistemi",
+        tags: ["unutrašnja vrata", "kancelarije", "moderan dizajn", "fleksibilna ispuna"]
       },
       colors: [
-        { name: "Siva", hexCode: "#808080", available: true },
-        { name: "Teget", hexCode: "#000080", available: true },
-        { name: "Bež", hexCode: "#F5F5DC", available: true }
+        { name: "Eloxirani srebrni", hexCode: "#C0C0C0", available: true },
+        { name: "Bela RAL 9016", hexCode: "#F6F6F6", available: true },
+        { name: "Antracit RAL 7016", hexCode: "#383E42", available: true },
+        { name: "Crna mat", hexCode: "#2C2C2C", available: true }
       ],
       sizes: [
-        { name: "Trosed", code: "3S", available: true },
-        { name: "Dvosed", code: "2S", available: true }
+        { name: "900x2100mm", code: "STD90", available: true },
+        { name: "1000x2100mm", code: "STD100", available: true },
+        { name: "1800x2100mm", code: "DUB180", available: true }
       ],
       price: {
-        amount: 89000,
+        amount: 35000,
+        currency: "RSD"
+      },
+      availability: {
+        inStock: true,
+        quantity: 12
+      }
+    },
+    {
+      title: "Staklena Ograda - Glass Balustrade System",
+      description: "Moderna staklena ograda sa aluminijumskim nosačima. Bezbednost i elegancija u jednom sistemu. Pogodna za terase, balkone i unutrašnje stepenice. Minimalistički dizajn sa maksimalnom transparentnošću.",
+      gallery: [],
+      measurements: [
+        {
+          size: "Standardni panel",
+          dimensions: {
+            length: 1500,
+            width: 12,
+            height: 1100,
+            weight: 45
+          }
+        },
+        {
+          size: "Ugaoni element",
+          dimensions: {
+            length: 1200,
+            width: 12,
+            height: 1100,
+            weight: 38
+          }
+        }
+      ],
+      catalog: {
+        catalogNumber: "GBS-100",
+        category: "Ograde i balustrande",
+        subcategory: "Staklene ograde",
+        tags: ["staklena ograda", "moderna", "transparentnost", "bezbednost"]
+      },
+      colors: [
+        { name: "Eloxirani prirodni", hexCode: "#C0C0C0", available: true },
+        { name: "Antracit RAL 7016", hexCode: "#383E42", available: true },
+        { name: "Bela RAL 9016", hexCode: "#F6F6F6", available: true }
+      ],
+      sizes: [
+        { name: "Panel 1500mm", code: "PAN150", available: true },
+        { name: "Panel 1200mm", code: "PAN120", available: true },
+        { name: "Ugaoni element", code: "COR90", available: true }
+      ],
+      price: {
+        amount: 18500,
         currency: "RSD"
       },
       availability: {
@@ -131,57 +324,99 @@ const seedProducts = async () => {
       }
     },
     {
-      title: "Klasični Sto za Trpezariju Vintage",
-      description: "Elegantan sto za trpezariju od masivnog drveta hrasta. Klasičan dizajn koji se savršeno uklapa u tradicionalne i moderne enterijer.",
-      gallery: [
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/products/sto-vintage-1.jpg",
-          publicId: "nissal/products/sto-vintage-1",
-          alt: "Vintage sto - glavni pogled",
-          isMain: true
-        }
-      ],
+      title: "Solar Mounting System - Sistem za Solarni Montaže",
+      description: "Aluminijumski nosači za solarni paneli. Otporan na koroziju i vremenski uslovi. Jednostavna ugradnja sa fleksibilnim postavkama uglova. Idealan za krovove i fasade sa solarnim instalacijama.",
+      gallery: [],
       measurements: [
         {
-          size: "6 mesta",
+          size: "Osnovni nosač",
           dimensions: {
-            length: 180,
-            width: 90,
-            height: 75,
-            weight: 55
+            length: 4000,
+            width: 50,
+            height: 40,
+            weight: 1.2
           }
         },
         {
-          size: "8 mesta",
+          size: "Krajnji nosač",
           dimensions: {
-            length: 220,
-            width: 100,
-            height: 75,
-            weight: 70
+            length: 2000,
+            width: 50,
+            height: 40,
+            weight: 0.8
           }
         }
       ],
       catalog: {
-        catalogNumber: "NIS-STO-003",
-        category: "Stolovi",
-        subcategory: "Trpezarijski stolovi",
-        tags: ["hrast", "masivno", "klasično", "porodica"]
+        catalogNumber: "SMS-200",
+        category: "Specijalni sistemi",
+        subcategory: "Solarni montažni sistemi",
+        tags: ["solari", "održivost", "energija", "montaža"]
       },
       colors: [
-        { name: "Prirodno drvo", hexCode: "#DEB887", available: true },
-        { name: "Tamni hrast", hexCode: "#8B4513", available: true }
+        { name: "Eloxirani prirodni", hexCode: "#C0C0C0", available: true },
+        { name: "Antracit RAL 7016", hexCode: "#383E42", available: true }
       ],
       sizes: [
-        { name: "6 mesta", code: "6P", available: true },
-        { name: "8 mesta", code: "8P", available: true }
+        { name: "Nosač 4000mm", code: "SUP400", available: true },
+        { name: "Nosač 2000mm", code: "SUP200", available: true },
+        { name: "Spojni elementi", code: "CON-SET", available: true }
       ],
       price: {
-        amount: 75000,
+        amount: 1200,
         currency: "RSD"
       },
       availability: {
         inStock: true,
-        quantity: 12
+        quantity: 100
+      }
+    },
+    {
+      title: "Lexan System - Polikarbonatni Sistem",
+      description: "Aluminijumski sistem za polikarbonatne ploče. Idealan za nadstrešnice, zimske bašte i svetlosne krovove. Kombinuje čvrstoću aluminijuma sa transparentnošću polikarbonata.",
+      gallery: [],
+      measurements: [
+        {
+          size: "Nosači profil",
+          dimensions: {
+            length: 6000,
+            width: 60,
+            height: 25,
+            weight: 1.1
+          }
+        },
+        {
+          size: "Završni profil",
+          dimensions: {
+            length: 6000,
+            width: 45,
+            height: 20,
+            weight: 0.8
+          }
+        }
+      ],
+      catalog: {
+        catalogNumber: "LEX-600",
+        category: "Nadstrešnice i krovovi", 
+        subcategory: "Polikarbonatni sistemi",
+        tags: ["polikarbonat", "nadstrešnice", "transparentnost", "svetlosni krov"]
+      },
+      colors: [
+        { name: "Bela RAL 9016", hexCode: "#F6F6F6", available: true },
+        { name: "Antracit RAL 7016", hexCode: "#383E42", available: true },
+        { name: "Braon RAL 8017", hexCode: "#45322E", available: true }
+      ],
+      sizes: [
+        { name: "Nosač 60x25mm", code: "SUP6025", available: true },
+        { name: "Završni 45x20mm", code: "END4520", available: true }
+      ],
+      price: {
+        amount: 800,
+        currency: "RSD"
+      },
+      availability: {
+        inStock: true,
+        quantity: 150
       }
     }
   ];
@@ -197,116 +432,113 @@ const seedProducts = async () => {
 const seedProjects = async () => {
   const mockProjects = [
     {
-      title: "Luksuzni Apartman u Beogradu",
-      description: "Kompletno uređenje luksuznog apartmana od 120m² u centru Beograda. Projekat je obuhvatio dizajn i izradu sve potrebnog nameštaja, uključujući dnevnu sobu, trpezariju, spavaće sobe i radni prostor. Kombinacija modernog dizajna sa klasičnim elementima.",
-      gallery: [
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/apartman-beograd-1.jpg",
-          publicId: "nissal/projects/apartman-beograd-1",
-          alt: "Apartman Beograd - dnevna soba",
-          isMain: true,
-          order: 1
-        },
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/apartman-beograd-2.jpg",
-          publicId: "nissal/projects/apartman-beograd-2",
-          alt: "Apartman Beograd - trpezarija",
-          order: 2
-        },
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/apartman-beograd-3.jpg",
-          publicId: "nissal/projects/apartman-beograd-3",
-          alt: "Apartman Beograd - spavaća soba",
-          order: 3
-        }
+      title: "Poslovni Kompleks Belgrade Plaza",
+      description: "Savremeni poslovni kompleks sa preko 15.000m² aluminijumskih sistema. Korišćeni su ALS 4800 i ALT 7500 sistemi za maksimalnu energetsku efikasnost. Projekat je realizovan u saradnji sa renomiranim arhitektama.",
+      client: "Belgrade Development Group",
+      location: "Beograd, Novi Beograd",
+      completionDate: new Date('2023-09-15'),
+      projectType: "Komercijalni",
+      category: "commercial",
+      gallery: [],
+      technicalData: {
+        totalArea: 15000,
+        numberOfUnits: 250,
+        realizationTime: 8,
+        projectValue: 2500000
+      },
+      productsUsed: [
+        "ALS 4800 - Prozorski Sistem",
+        "ALT 7500 - Toplotno Izolovan Sistem",
+        "Interior Door System"
       ],
-      category: "Stambeni prostori",
-      client: "Porodica Marković",
+      tags: ["komercijalni", "energetska efikasnost", "veliki projekat", "beograd"]
+    },
+    {
+      title: "Luksuzna Vila Dedinje",
+      description: "Ekskluzivna privatna rezidencija sa premium aluminijumskim sistemima. Korišćeni ALD 9100 profili i staklene ograde za moderan i elegantan izgled. Posebna pažnja posvećena detaljima i završnoj obradi.",
+      client: "Privatno lice",
+      location: "Beograd, Dedinje", 
+      completionDate: new Date('2023-11-20'),
+      projectType: "Stambeni - luksuzni",
+      category: "residential",
+      gallery: [],
+      technicalData: {
+        totalArea: 450,
+        numberOfUnits: 1,
+        realizationTime: 3,
+        projectValue: 180000
+      },
+      productsUsed: [
+        "ALD 9100 - Aluminijumski Profili",
+        "Staklena Ograda - Glass Balustrade System",
+        "ALT 7500 - Toplotno Izolovan Sistem"
+      ],
+      tags: ["luksuz", "privatna kuća", "premium", "dedinje"]
+    },
+    {
+      title: "Hotel Metropolitan Novi Sad",
+      description: "Renoviranje fasade hotela sa modernim aluminijumskim sistemima. Kombinacija ALS 57 i Interior Door sistema. Projekat je uključivao i ugradnju solarnog montažnog sistema na krovu.",
+      client: "Hotel Metropolitan d.o.o.",
+      location: "Novi Sad, Centar",
+      completionDate: new Date('2023-07-10'),
+      projectType: "Ugostitelski",
+      category: "commercial",
+      gallery: [],
+      technicalData: {
+        totalArea: 2800,
+        numberOfUnits: 85,
+        realizationTime: 4,
+        projectValue: 420000
+      },
+      productsUsed: [
+        "ALS 57 - Aluminijumski Sistem",
+        "Interior Door System",
+        "Solar Mounting System"
+      ],
+      tags: ["hotel", "renoviranje", "solari", "novi sad"]
+    },
+    {
+      title: "Sportski Centar Zemun",
+      description: "Moderna sportska hala sa velikim staklenim površinama. Korišćen je Lexan sistem za svetlosni krov i ALS 4800 za fasadne elemente. Projekat omogućava odličnu prirodnu osvetljenost.",
+      client: "Opština Zemun",
+      location: "Zemun, Novi Grad",
+      completionDate: new Date('2023-05-30'),
+      projectType: "Javni - sportski",
+      category: "public",
+      gallery: [],
+      technicalData: {
+        totalArea: 3200,
+        numberOfUnits: 1,
+        realizationTime: 6,
+        projectValue: 680000
+      },
+      productsUsed: [
+        "Lexan System - Polikarbonatni Sistem",
+        "ALS 4800 - Prozorski Sistem",
+        "Staklena Ograda - Glass Balustrade System"
+      ],
+      tags: ["javni objekti", "sport", "svetlosni krov", "zemun"]
+    },
+    {
+      title: "Stambena Zgrada Vračar",
+      description: "Moderan stambeni kompleks sa 45 stanova. Korišćeni su energetski efikasni ALT 7500 sistemi za sve prozore i balkanske vrata. Posebno je obrađena fasada sa kombinacijom različitih boja.",
+      client: "Vračar Invest d.o.o.",
       location: "Beograd, Vračar",
-      completionDate: new Date("2024-03-15"),
-      tags: ["luksuz", "apartman", "moderno", "kompletno uređenje"],
-      featured: true
-    },
-    {
-      title: "Korporativne Kancelarije Tech Kompanije",
-      description: "Dizajn i oprema modernih kancelarijskih prostora na 300m² za IT kompaniju. Open space koncept sa fleksibilnim radnim zonama, meeting sobama i relaks prostorima. Fokus na ergonomiju i produktivnost zaposlenih.",
-      gallery: [
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/kancelarije-tech-1.jpg",
-          publicId: "nissal/projects/kancelarije-tech-1",
-          alt: "Tech kancelarije - open space",
-          isMain: true,
-          order: 1
-        },
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/kancelarije-tech-2.jpg",
-          publicId: "nissal/projects/kancelarije-tech-2",
-          alt: "Tech kancelarije - meeting soba",
-          order: 2
-        }
+      completionDate: new Date('2023-12-15'),
+      projectType: "Stambeni",
+      category: "residential",
+      gallery: [],
+      technicalData: {
+        totalArea: 4500,
+        numberOfUnits: 45,
+        realizationTime: 5,
+        projectValue: 950000
+      },
+      productsUsed: [
+        "ALT 7500 - Toplotno Izolovan Sistem",
+        "ALS 57 - Aluminijumski Sistem"
       ],
-      category: "Poslovni prostori",
-      client: "TechSolutions d.o.o.",
-      location: "Novi Sad, BTP",
-      completionDate: new Date("2024-01-20"),
-      tags: ["kancelarije", "IT", "open space", "ergonomija"],
-      featured: true
-    },
-    {
-      title: "Tradicionalni Restoran 'Stara Čaršija'",
-      description: "Kompletno uređenje tradicionalnog restorana sa 80 mesta. Kombinacija autentičnih materijalsa poput drveta i kamena sa modernim funkcionalnim rešenjima. Projekat je uključivao dizajn enterijera, custom nameštaj i ambijentalno osvetljenje.",
-      gallery: [
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/restoran-stara-1.jpg",
-          publicId: "nissal/projects/restoran-stara-1",
-          alt: "Restoran - glavni salon",
-          isMain: true,
-          order: 1
-        },
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/restoran-stara-2.jpg",
-          publicId: "nissal/projects/restoran-stara-2",
-          alt: "Restoran - bar prostor",
-          order: 2
-        },
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/restoran-stara-3.jpg",
-          publicId: "nissal/projects/restoran-stara-3",
-          alt: "Restoran - privatna sala",
-          order: 3
-        }
-      ],
-      category: "Ugostiteljski objekti",
-      client: "Restoran 'Stara Čaršija'",
-      location: "Kragujevac, Centar",
-      completionDate: new Date("2023-11-10"),
-      tags: ["restoran", "tradicionalno", "drvo", "kamen", "ambijent"],
-      featured: false
-    },
-    {
-      title: "Moderna Vila u Dedinjštini",
-      description: "Enterijer moderne vile od 250m² sa naglašenim minimalističkim pristupom. Clean lines, prirodni materijali i puno svetlosti. Projekat je obuhvatao sve prostorije uključujući home cinema, wine cellar i spa prostor.",
-      gallery: [
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/vila-dedinje-1.jpg",
-          publicId: "nissal/projects/vila-dedinje-1",
-          alt: "Vila Dedinje - dnevna soba",
-          isMain: true,
-          order: 1
-        },
-        {
-          url: "https://res.cloudinary.com/demo/image/upload/v1234567890/nissal/projects/vila-dedinje-2.jpg",
-          publicId: "nissal/projects/vila-dedinje-2",
-          alt: "Vila Dedinje - kuhinja",
-          order: 2
-        }
-      ],
-      category: "Stambeni prostori",
-      client: "Privatni klijent",
-      location: "Beograd, Dedinje",
-      completionDate: new Date("2024-05-30"),
-      tags: ["vila", "minimalizam", "luksuz", "prirodni materijali"],
-      featured: true
+      tags: ["stambeni", "energetska efikasnost", "vračar", "apartmani"]
     }
   ];
 
@@ -318,176 +550,62 @@ const seedProjects = async () => {
   }
 };
 
-const seedUsers = async () => {
-  const mockUsers = [
-    {
-      name: "Marko Petrović",
-      email: "admin@nissal.rs",
-      password: "admin123",
-      role: "admin",
-      permissions: [
-        'manage_products',
-        'manage_projects', 
-        'manage_messages',
-        'manage_users',
-        'view_analytics',
-        'system_settings'
-      ]
-    },
-    {
-      name: "Ana Nikolić",
-      email: "manager@nissal.rs", 
-      password: "manager123",
-      role: "manager",
-      permissions: [
-        'manage_products',
-        'manage_projects',
-        'manage_messages',
-        'view_analytics'
-      ]
-    },
-    {
-      name: "Stefan Jovanović",
-      email: "staff@nissal.rs",
-      password: "staff123", 
-      role: "staff",
-      permissions: [
-        'manage_messages'
-      ]
-    }
-  ];
-
-  try {
-    const users = await User.insertMany(mockUsers);
-    console.log('Users seeded successfully');
-    return users;
-  } catch (error) {
-    console.error('Error seeding users:', error);
-    return [];
-  }
-};
-
-const seedMessages = async (users) => {
-  if (!users || users.length === 0) {
-    console.error('No users available for message seeding');
-    return;
-  }
-
-  const adminUser = users.find(u => u.role === 'admin');
-  const managerUser = users.find(u => u.role === 'manager');
-  const staffUser = users.find(u => u.role === 'staff');
-
+const seedMessages = async () => {
   const mockMessages = [
-    {
-      type: "contact",
-      sender: {
-        name: "Marija Petrović",
-        email: "marija.petrovic@email.com",
-        phone: "+381641234567",
-        company: ""
-      },
-      subject: "Upit za trosed Roma",
-      content: "Pozdrav, interesuje me trosed Roma koji sam videla na vašem sajtu. Da li je dostupan u teget boji i koliko vremena je potrebno za izradu? Takođe, da li je moguća dostava u Niš?",
-      status: "new",
-      priority: "medium",
-      metadata: {
-        ipAddress: "192.168.1.100",
-        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        source: "website"
-      }
-    },
     {
       type: "order",
       sender: {
-        name: "Stefan Nikolić", 
-        email: "stefan.nikolic@firma.rs",
-        phone: "+381629876543",
-        company: "Nikolić Trade d.o.o."
+        name: "Marko Petrović",
+        email: "marko.petrovic@email.com",
+        phone: "+381 64 123 4567",
+        company: "Petrović Gradnja d.o.o."
       },
-      subject: "Narudžbina kancelarijskog nameštaja",
-      content: "Trebaju nam kancelarijski stolovi i stolice za 15 radnih mesta. Interesuju nas moderna rešenja slična onima što ste radili za Tech kompaniju. Budžet je oko 500.000 RSD. Molim kontakt radi dogovora termina za pregled prostora.",
-      status: "in_progress",
-      priority: "high",
-      adminNotes: "Klijent ima hitan potrebu, zakazati pregled za sledeću nedelju",
-      assignedTo: managerUser._id,
-      metadata: {
-        ipAddress: "192.168.1.101",
-        userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-        source: "website"
-      }
+      subject: "Ponuda za ALS 4800 sistem",
+      content: "Poštovani, zanima me ponuda za ALS 4800 sistem za objekat od 500m². Molim vas da mi pošaljete detaljnu specifikaciju i cenovnik. Projekat planiramo da realizujemo tokom proleća.",
+      status: "new",
+      priority: "medium",
+      createdAt: new Date('2024-01-15T10:30:00Z')
     },
     {
       type: "inquiry",
       sender: {
-        name: "Ana Jovanović",
-        email: "ana.jovanovic@gmail.com",
-        phone: "+381113456789"
+        name: "Ana Nikolić",
+        email: "ana.nikolic@arhitektura.rs",
+        phone: "+381 63 987 6543",
+        company: "Studio Nikolić"
       },
-      subject: "Mogućnost custom izrade fotelje",
-      content: "Zdravo, da li radite custom fotelje po specifičnim merama? Potrebna mi je fotelja dimenzija 80x85x110cm u burgundy boji. Da li je to moguće i kolika bi bila cena?",
-      status: "replied",
-      priority: "medium",
-      replies: [
-        {
-          content: "Poštovana Ana, hvala na upitu. Da, radimo custom izradu po vašim specifikacijama. Za fotelje dimenzija koje ste naveli, cena bi bila oko 95.000 RSD u zavisnosti od odabranog materijala. Burgundy boja je dostupna. Molim vas pozovite nas da dogovorimo detalje.",
-          sentBy: staffUser._id,
-          sentAt: new Date("2024-07-20T10:30:00"),
-          emailSent: true,
-          emailSentAt: new Date("2024-07-20T10:32:00")
-        }
-      ],
-      assignedTo: staffUser._id,
-      metadata: {
-        ipAddress: "192.168.1.102", 
-        userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15",
-        source: "website"
-      }
-    },
-    {
-      type: "complaint",
-      sender: {
-        name: "Miloš Stojanović",
-        email: "milos.stojanovic@email.com",
-        phone: "+381601234567"
-      },
-      subject: "Problem sa dostavom",
-      content: "Naručio sam Milano fotelje pre mesec dana i trebalo je da budu dostavljene prošle nedelje. Još uvek ih nisam dobio i niko me nije kontaktirao. Molim hitno objašnjenje.",
-      status: "resolved",
-      priority: "urgent",
-      adminNotes: "Problem rešen - fotelje dostavljene 22.07. Klijent zadovoljan.",
-      replies: [
-        {
-          content: "Poštovani Milošo, izvinjavam se zbog kašnjenja. Došlo je do problema u proizvodnji koje smo rešili. Vaše fotelje će biti dostavljene sutra između 10-12h. Zbog neprijatnosti, odobravamo vam 10% popust na sledeću kupovinu.",
-          sentBy: adminUser._id,
-          sentAt: new Date("2024-07-21T14:15:00"),
-          emailSent: true,
-          emailSentAt: new Date("2024-07-21T14:17:00")
-        }
-      ],
-      assignedTo: adminUser._id,
-      metadata: {
-        ipAddress: "192.168.1.103",
-        userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
-        source: "website"
-      }
+      subject: "Konsultacije za luksuznu vilu",
+      content: "Zdravo, architect sam i radim na projektu luksuzne vile. Trebam konsultacije za izbor najkvalitetnijih aluminijumskih sistema. Koje biste proizvode preporučili za ovakav tip objekta?",
+      status: "in_progress",
+      priority: "high",
+      createdAt: new Date('2024-01-18T14:15:00Z')
     },
     {
       type: "other",
       sender: {
-        name: "Jelena Mitrović",
-        email: "jelena.mitrovic@design.com",
-        phone: "+381654321098",
-        company: "Interior Design Studio"
+        name: "Stefan Jovanović",
+        email: "stefan@email.com",
+        phone: "+381 65 555 1234"
       },
-      subject: "Mogućnost saradnje",
-      content: "Pozdrav, ja sam interior designer i često imam klijente kojima su potrebni custom nameštaj. Da li biste bili zainteresovani za saradnju? Radim uglavnom na high-end projektima.",
-      status: "read",
+      subject: "Pitanje o garanciji",
+      content: "Poštovani, pre godinu dana ste mi ugradili ALS 57 sistem. Primetio sam da se jedan od prozora teško otvara. Da li je ovo pokriveno garancijom i kako da zakažem servis?",
+      status: "resolved",
       priority: "medium",
-      metadata: {
-        ipAddress: "192.168.1.104",
-        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0",
-        source: "website"
-      }
+      createdAt: new Date('2024-01-12T09:45:00Z')
+    },
+    {
+      type: "order",
+      sender: {
+        name: "Milica Stojanović",
+        email: "milica.stojanovic@hotel.rs",
+        phone: "+381 62 333 7890",
+        company: "Grand Hotel Beograd"
+      },
+      subject: "Obnova fasade hotela",
+      content: "Potrebna nam je obnova fasade hotela sa modernim aluminijumskim sistemima. Objekat ima oko 150 prozora različitih dimenzija. Možete li nam poslati predstavnika za merenje?",
+      status: "new",
+      priority: "high",
+      createdAt: new Date('2024-01-20T11:00:00Z')
     }
   ];
 
@@ -499,30 +617,63 @@ const seedMessages = async (users) => {
   }
 };
 
-const seedDatabase = async () => {
-  await connectDB();
-  
-  console.log('Starting database seeding...');
-  
-  // Clear existing data
-  await clearDatabase();
-  
-  // Seed new data
-  const users = await seedUsers();
-  await seedProducts();
-  await seedProjects(); 
-  await seedMessages(users);
-  
-  console.log('Database seeding completed successfully!');
-  
-  // Close connection
-  await mongoose.connection.close();
-  console.log('Database connection closed.');
+const seedUsers = async () => {
+  const mockUsers = [
+    {
+      name: "Nikola Radić",
+      email: "admin@nissal.rs",
+      password: "$2b$10$rOvM3PjKlkzTfKWJ8/F32OF8Ev4CPn8E8BZQT2A9JGLCzFAyXa5xS", // password: admin123
+      role: "admin"
+    },
+    {
+      name: "Marija Petrović",
+      email: "manager@nissal.rs", 
+      password: "$2b$10$rOvM3PjKlkzTfKWJ8/F32OF8Ev4CPn8E8BZQT2A9JGLCzFAyXa5xS", // password: admin123
+      role: "manager"
+    },
+    {
+      name: "MTC Nissal Admin",
+      email: "nissalmtctestmail@nissal.rs",
+      password: "$2a$10$1SBPkdiqxagWzsdCqdNRR.80Dx1iAC/Z6ZCktfakOv/6sN.1e0M/6", // password: nissalmtctestmail123
+      role: "admin"
+    }
+  ];
+
+  try {
+    await User.insertMany(mockUsers);
+    console.log('Users seeded successfully');
+  } catch (error) {
+    console.error('Error seeding users:', error);
+  }
 };
 
-module.exports = { seedDatabase, clearDatabase, seedProducts, seedProjects, seedMessages };
+const seedDatabase = async () => {
+  try {
+    await connectDB();
+    await clearDatabase();
+    await seedProducts();
+    await seedProjects();
+    await seedMessages();
+    await seedUsers();
+    
+    console.log('Database seeded successfully!');
+    process.exit(0);
+  } catch (error) {
+    console.error('Error seeding database:', error);
+    process.exit(1);
+  }
+};
 
 // Run seeder if this file is executed directly
 if (require.main === module) {
-  seedDatabase().catch(console.error);
+  seedDatabase();
 }
+
+module.exports = {
+  seedDatabase,
+  clearDatabase,
+  seedProducts,
+  seedProjects,
+  seedMessages,
+  seedUsers
+};

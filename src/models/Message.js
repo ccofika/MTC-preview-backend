@@ -3,28 +3,28 @@ const mongoose = require('mongoose');
 const messageSchema = new mongoose.Schema({
   type: {
     type: String,
+    enum: ['inquiry', 'order', 'support', 'other'],
     required: true,
-    enum: ['contact', 'order', 'inquiry', 'complaint', 'other'],
-    default: 'contact'
+    default: 'inquiry'
   },
   sender: {
     name: {
       type: String,
-      required: [true, 'Sender name is required'],
+      required: [true, 'Name is required'],
       trim: true,
       maxlength: [100, 'Name cannot exceed 100 characters']
     },
     email: {
       type: String,
-      required: [true, 'Sender email is required'],
+      required: [true, 'Email is required'],
       trim: true,
       lowercase: true,
-      match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
+      match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email']
     },
     phone: {
       type: String,
       trim: true,
-      maxlength: [20, 'Phone number cannot exceed 20 characters']
+      maxlength: [20, 'Phone cannot exceed 20 characters']
     },
     company: {
       type: String,
@@ -34,7 +34,7 @@ const messageSchema = new mongoose.Schema({
   },
   subject: {
     type: String,
-    required: [true, 'Message subject is required'],
+    required: [true, 'Subject is required'],
     trim: true,
     maxlength: [200, 'Subject cannot exceed 200 characters']
   },
@@ -42,18 +42,11 @@ const messageSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Message content is required'],
     trim: true,
-    maxlength: [2000, 'Message content cannot exceed 2000 characters']
+    maxlength: [2000, 'Message cannot exceed 2000 characters']
   },
-  attachments: [{
-    filename: String,
-    url: String,
-    publicId: String,
-    mimeType: String,
-    size: Number
-  }],
   status: {
     type: String,
-    enum: ['new', 'read', 'replied', 'in_progress', 'resolved', 'archived'],
+    enum: ['new', 'in_progress', 'resolved', 'closed'],
     default: 'new'
   },
   priority: {
@@ -61,63 +54,72 @@ const messageSchema = new mongoose.Schema({
     enum: ['low', 'medium', 'high', 'urgent'],
     default: 'medium'
   },
-  adminNotes: {
-    type: String,
-    trim: true,
-    maxlength: [1000, 'Admin notes cannot exceed 1000 characters']
-  },
   assignedTo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  replies: [{
+  notes: [{
     content: {
       type: String,
-      required: true,
-      trim: true
+      required: true
     },
-    sentBy: {
+    author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true
     },
-    sentAt: {
+    createdAt: {
       type: Date,
       default: Date.now
-    },
-    emailSent: {
-      type: Boolean,
-      default: false
-    },
-    emailSentAt: Date
-  }],
-  metadata: {
-    ipAddress: String,
-    userAgent: String,
-    source: {
-      type: String,
-      enum: ['website', 'admin', 'email', 'phone'],
-      default: 'website'
     }
-  },
-  isArchived: {
+  }],
+  attachments: [{
+    filename: String,
+    url: String,
+    size: Number,
+    mimeType: String
+  }],
+  tags: [String],
+  isRead: {
     type: Boolean,
     default: false
+  },
+  readBy: [{
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    readAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
+  resolvedAt: Date,
+  resolvedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, {
   timestamps: true
 });
 
-messageSchema.index({ 'sender.email': 1 });
+// Indexes for better performance
 messageSchema.index({ status: 1 });
-messageSchema.index({ type: 1 });
 messageSchema.index({ priority: 1 });
+messageSchema.index({ type: 1 });
 messageSchema.index({ createdAt: -1 });
-messageSchema.index({ subject: 'text', content: 'text' });
+messageSchema.index({ 'sender.email': 1 });
+messageSchema.index({ isRead: 1 });
 
+// Virtual for full name
+messageSchema.virtual('sender.fullName').get(function() {
+  return this.sender.name;
+});
+
+// Pre-save middleware
 messageSchema.pre('save', function(next) {
-  if (this.isNew && this.status === 'new') {
-    this.metadata.receivedAt = new Date();
+  if (this.status === 'resolved' && !this.resolvedAt) {
+    this.resolvedAt = new Date();
   }
   next();
 });

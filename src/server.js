@@ -12,7 +12,7 @@ const app = express();
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: process.env.NODE_ENV === 'production' ? 100 : 1000,
   message: 'Too many requests from this IP'
 });
 
@@ -50,17 +50,22 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => console.log('Connected to MongoDB'));
 
+
 // Routes
 const authRoutes = require('./routes/auth');
 const contactRoutes = require('./routes/contact');
 const productRoutes = require('./routes/products');
 const projectRoutes = require('./routes/projects');
+const adminUserRoutes = require('./routes/adminUsers');
+const siteSettingsRoutes = require('./routes/siteSettings');
 const auth = require('./middleware/auth');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/projects', projectRoutes);
+app.use('/api/adminUsers', adminUserRoutes);
+app.use('/api/settings', siteSettingsRoutes);
 
 
 app.get('/api/health', (req, res) => {

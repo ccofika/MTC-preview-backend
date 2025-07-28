@@ -3,6 +3,8 @@ const Product = require('../models/Product');
 const Project = require('../models/Project');
 const Message = require('../models/Message');
 const User = require('../models/User');
+const SiteSettings = require('../models/SiteSettings');
+const seedSiteSettings = require('./siteSettingsSeeder');
 require('dotenv').config();
 
 const connectDB = async () => {
@@ -21,6 +23,7 @@ const clearDatabase = async () => {
     await Project.deleteMany({});
     await Message.deleteMany({});
     await User.deleteMany({});
+    await SiteSettings.deleteMany({});
     console.log('Database cleared successfully');
   } catch (error) {
     console.error('Error clearing database:', error);
@@ -618,24 +621,51 @@ const seedMessages = async () => {
 };
 
 const seedUsers = async () => {
+  const bcrypt = require('bcryptjs');
+  
+  // Hash the password for nissalmtctestmail123
+  const hashedPassword = await bcrypt.hash('nissalmtctestmail123', 12);
+  
   const mockUsers = [
+    {
+      name: "MTC Nissal Admin",
+      email: "nissalmtctestmail@gmail.com",
+      password: hashedPassword,
+      role: "admin",
+      permissions: [
+        'manage_products',
+        'manage_projects', 
+        'manage_messages',
+        'manage_users',
+        'view_analytics',
+        'system_settings'
+      ]
+    },
     {
       name: "Nikola Radić",
       email: "admin@nissal.rs",
-      password: "$2b$10$rOvM3PjKlkzTfKWJ8/F32OF8Ev4CPn8E8BZQT2A9JGLCzFAyXa5xS", // password: admin123
-      role: "admin"
+      password: await bcrypt.hash('admin123', 12),
+      role: "admin",
+      permissions: [
+        'manage_products',
+        'manage_projects', 
+        'manage_messages',
+        'manage_users',
+        'view_analytics',
+        'system_settings'
+      ]
     },
     {
       name: "Marija Petrović",
       email: "manager@nissal.rs", 
-      password: "$2b$10$rOvM3PjKlkzTfKWJ8/F32OF8Ev4CPn8E8BZQT2A9JGLCzFAyXa5xS", // password: admin123
-      role: "manager"
-    },
-    {
-      name: "MTC Nissal Admin",
-      email: "nissalmtctestmail@nissal.rs",
-      password: "$2a$10$1SBPkdiqxagWzsdCqdNRR.80Dx1iAC/Z6ZCktfakOv/6sN.1e0M/6", // password: nissalmtctestmail123
-      role: "admin"
+      password: await bcrypt.hash('manager123', 12),
+      role: "manager",
+      permissions: [
+        'manage_products',
+        'manage_projects', 
+        'manage_messages',
+        'view_analytics'
+      ]
     }
   ];
 
@@ -655,6 +685,7 @@ const seedDatabase = async () => {
     await seedProjects();
     await seedMessages();
     await seedUsers();
+    await seedSiteSettings();
     
     console.log('Database seeded successfully!');
     process.exit(0);
@@ -675,5 +706,6 @@ module.exports = {
   seedProducts,
   seedProjects,
   seedMessages,
-  seedUsers
+  seedUsers,
+  seedSiteSettings
 };

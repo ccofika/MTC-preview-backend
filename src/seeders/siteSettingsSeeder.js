@@ -1,0 +1,56 @@
+const SiteSettings = require('../models/SiteSettings');
+
+const seedSiteSettings = async () => {
+  try {
+    console.log('Seeding site settings...');
+    
+    // Check if settings already exist
+    const existingSettings = await SiteSettings.findOne({});
+    if (existingSettings) {
+      console.log('Site settings already exist, skipping...');
+      return;
+    }
+
+    // Create default site settings
+    const defaultSettings = new SiteSettings({
+      companyEmail: 'info@nissal.rs',
+      companyPhone: '+381 11 123 4567',
+      companyAddress: {
+        street: 'Industrijska zona bb',
+        city: '11000 Beograd',
+        country: 'Srbija'
+      },
+      workingHours: {
+        weekdays: 'Ponedeljak-Petak: 08:00-16:00',
+        saturday: 'Subota: 08:00-12:00',
+        sunday: 'Nedelja: Zatvoreno'
+      },
+      socialMedia: {
+        facebook: '',
+        instagram: '',
+        linkedin: '',
+        youtube: ''
+      },
+      maintenanceEnabled: false,
+      maintenanceMessage: 'Sajt je trenutno u režimu održavanja. Molimo pokušajte kasnije.',
+      siteTitle: 'NISSAL - Aluminijumski sistemi',
+      siteDescription: 'Specijalizovani za proizvodnju i ugradnju aluminijumskih sistema najvećeg kvaliteta',
+      siteKeywords: 'aluminijum, sistemi, prozori, vrata, fasade, Beograd, Srbija',
+      notifications: {
+        emailOnNewContact: true,
+        emailOnNewOrder: true,
+        smsNotifications: false
+      },
+      version: '1.0.0'
+    });
+
+    await defaultSettings.save();
+    console.log('✅ Site settings seeded successfully');
+    
+  } catch (error) {
+    console.error('❌ Error seeding site settings:', error);
+    throw error;
+  }
+};
+
+module.exports = seedSiteSettings;

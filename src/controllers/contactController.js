@@ -1,5 +1,6 @@
 const { uploadImage, deleteImage } = require('../config/cloudinary');
 const nodemailer = require('nodemailer');
+const SiteSettings = require('../models/SiteSettings');
 
 // Gmail SMTP configuration
 const createTransporter = () => {
@@ -28,6 +29,9 @@ const createTransporter = () => {
 // Submit contact form
 const submitContactForm = async (req, res) => {
   try {
+    // Get site settings for email configuration
+    const siteSettings = await SiteSettings.getCurrentSettings();
+    
     const {
       firstName,
       lastName,
@@ -114,7 +118,7 @@ const submitContactForm = async (req, res) => {
       console.log('Sending notification email to company...');
       const notificationResult = await transporter.sendMail({
         from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
+        to: siteSettings.companyEmail || process.env.EMAIL_USER,
         subject: `Nova poruka: ${subject}`,
         html: emailBody
       });
@@ -138,9 +142,9 @@ const submitContactForm = async (req, res) => {
         <hr>
         <p>
           Srdačan pozdrav,<br>
-          <strong>Nissal Tim</strong><br>
-          Telefon: +381 11 123 4567<br>
-          Email: info@nissal.rs
+          <strong>${siteSettings.emailSettings?.emailFromName || 'Nissal Tim'}</strong><br>
+          Telefon: ${siteSettings.companyPhone}<br>
+          Email: ${siteSettings.companyEmail}
         </p>
       `;
 

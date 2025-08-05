@@ -27,13 +27,14 @@ const uploadOptions = {
   }
 };
 
+// Upload regular images
 const uploadImage = async (buffer, options = {}) => {
   try {
     return new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
-          ...options,
-          resource_type: 'auto'
+          resource_type: 'auto',
+          ...options
         },
         (error, result) => {
           if (error) {
@@ -49,24 +50,43 @@ const uploadImage = async (buffer, options = {}) => {
   }
 };
 
-const deleteImage = async (publicId) => {
+// Upload PDF files specifically
+const uploadPdf = async (buffer, options = {}) => {
   try {
-    const result = await cloudinary.uploader.destroy(publicId);
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        {
+          resource_type: 'raw',
+          folder: 'nissal/catalogs',
+          ...options
+        },
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        }
+      ).end(buffer);
+    });
+  } catch (error) {
+    throw new Error(`PDF upload failed: ${error.message}`);
+  }
+};
+
+// Delete any resource (image or PDF)
+const deleteResource = async (publicId, resourceType = 'image') => {
+  try {
+    const result = await cloudinary.uploader.destroy(publicId, {
+      resource_type: resourceType
+    });
     return result;
   } catch (error) {
     throw new Error(`Cloudinary delete failed: ${error.message}`);
   }
 };
 
-const deleteMultipleImages = async (publicIds) => {
-  try {
-    const result = await cloudinary.api.delete_resources(publicIds);
-    return result;
-  } catch (error) {
-    throw new Error(`Cloudinary batch delete failed: ${error.message}`);
-  }
-};
-
+// Generate image URL
 const getImageUrl = (publicId, transformations = {}) => {
   return cloudinary.url(publicId, {
     secure: true,
@@ -74,11 +94,39 @@ const getImageUrl = (publicId, transformations = {}) => {
   });
 };
 
+// Generate PDF download URL with proper filename
+const getPdfDownloadUrl = (publicId, filename = null) => {
+  const options = {
+    resource_type: 'raw',
+    secure: true,
+    flags: 'attachment'
+  };
+  
+  // Add filename if provided to ensure .pdf extension
+  if (filename) {
+    // Ensure filename has .pdf extension
+    const cleanFilename = filename.endsWith('.pdf') ? filename : filename + '.pdf';
+    options.flags = `attachment:${cleanFilename}`;
+  }
+  
+  return cloudinary.url(publicId, options);
+};
+
+// Generate PDF view URL (for direct access)
+const getPdfViewUrl = (publicId) => {
+  return cloudinary.url(publicId, {
+    resource_type: 'raw',
+    secure: true
+  });
+};
+
 module.exports = {
   cloudinary,
   uploadOptions,
   uploadImage,
-  deleteImage,
-  deleteMultipleImages,
-  getImageUrl
+  uploadPdf,
+  deleteResource,
+  getImageUrl,
+  getPdfDownloadUrl,
+  getPdfViewUrl
 };

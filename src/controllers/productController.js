@@ -1,5 +1,11 @@
 const Product = require('../models/Product');
-const { uploadImage, deleteImage, deleteMultipleImages } = require('../config/cloudinary');
+const { 
+  uploadImage, 
+  uploadPdf, 
+  deleteResource, 
+  getPdfDownloadUrl, 
+  getPdfViewUrl 
+} = require('../config/cloudinary');
 
 // Get all products with filtering and pagination
 const getProducts = async (req, res) => {
@@ -19,7 +25,7 @@ const getProducts = async (req, res) => {
     } = req.query;
 
     // Build filter object
-    const filter = { isActive: true };
+    const filter = { isActive: true, $or: [{ isHidden: false }, { isHidden: { $exists: false } }] };
     
     if (category) {
       filter['catalog.category'] = { $regex: category, $options: 'i' };
@@ -105,7 +111,11 @@ const getProductById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const product = await Product.findOne({ _id: id, isActive: true });
+    const product = await Product.findOne({ 
+      _id: id, 
+      isActive: true, 
+      $or: [{ isHidden: false }, { isHidden: { $exists: false } }] 
+    });
 
     if (!product) {
       return res.status(404).json({
@@ -546,6 +556,310 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// Upload catalog PDF for product (admin)
+const uploadCatalogPdf = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: 'No PDF file provided'
+      });
+    }
+
+    // Delete existing catalog PDF if exists
+    if (product.catalogPdf && product.catalogPdf.publicId) {
+      try {
+        await deleteImage(product.catalogPdf.publicId);
+      } catch (deleteError) {
+        console.error('Old catalog PDF deletion error:', deleteError);
+      }
+    }
+
+    // Upload new PDF to Cloudinary
+    const uploadResult = await uploadImage(
+      req.file.buffer,
+      {
+        folder: 'nissal/catalogs',
+        resource_type: 'raw', // For PDF files
+        format: 'pdf'
+      }
+    );
+
+    // Generate proper PDF URL
+    const pdfUrl = getPdfUrl(uploadResult.public_id);
+    
+    // Update product with catalog PDF info
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      {
+        catalogPdf: {
+          url: pdfUrl,
+          publicId: uploadResult.public_id,
+          filename: req.file.originalname,
+          uploadedAt: new Date()
+        }
+      },
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Catalog PDF uploaded successfully',
+      data: {
+        catalogPdf: updatedProduct.catalogPdf
+      }
+    });
+
+  } catch (error) {
+    console.error('Upload catalog PDF error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to upload catalog PDF'
+    });
+  }
+};
+
+// Delete catalog PDF for product (admin)
+const deleteCatalogPdf = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    if (!product.catalogPdf || !product.catalogPdf.publicId) {
+      return res.status(404).json({
+        success: false,
+        message: 'No catalog PDF found for this product'
+      });
+    }
+
+    // Delete PDF from Cloudinary
+    try {
+      await deleteImage(product.catalogPdf.publicId);
+    } catch (deleteError) {
+      console.error('Catalog PDF deletion error:', deleteError);
+    }
+
+    // Remove catalog PDF info from product
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      {
+        $unset: { catalogPdf: 1 }
+      },
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Catalog PDF deleted successfully',
+      data: updatedProduct
+    });
+
+  } catch (error) {
+    console.error('Delete catalog PDF error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete catalog PDF'
+    });
+  }
+};
+
+// Hide product (admin)
+const hideProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      { isHidden: true },
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Product hidden successfully',
+      data: updatedProduct
+    });
+
+  } catch (error) {
+    console.error('Hide product error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to hide product'
+    });
+  }
+};
+
+// Show product (admin)
+const showProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      { isHidden: false },
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Product shown successfully',
+      data: updatedProduct
+    });
+
+  } catch (error) {
+    console.error('Show product error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to show product'
+    });
+  }
+};
+
+// Get all products for admin (including hidden)
+const getAllProductsForAdmin = async (req, res) => {
+  try {
+    const { page = 1, limit = 12, includeHidden = false } = req.query;
+    
+    const filter = { isActive: true };
+    if (!includeHidden || includeHidden === 'false') {
+      filter.$or = [{ isHidden: false }, { isHidden: { $exists: false } }];
+    }
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const products = await Product.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .select('-__v');
+
+    const total = await Product.countDocuments(filter);
+
+    res.json({
+      success: true,
+      data: {
+        products,
+        pagination: {
+          page: parseInt(page),
+          limit: parseInt(limit),
+          total,
+          pages: Math.ceil(total / parseInt(limit))
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Get all products for admin error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch products'
+    });
+  }
+};
+
+// Fix existing PDF URLs (one-time utility function)
+const fixPdfUrls = async (req, res) => {
+  try {
+    const products = await Product.find({ 
+      'catalogPdf.publicId': { $exists: true },
+      'catalogPdf.url': { $exists: true }
+    });
+    
+    let updatedCount = 0;
+    
+    for (const product of products) {
+      if (product.catalogPdf && product.catalogPdf.publicId) {
+        const correctedUrl = getPdfUrl(product.catalogPdf.publicId);
+        
+        await Product.findByIdAndUpdate(product._id, {
+          'catalogPdf.url': correctedUrl
+        });
+        
+        updatedCount++;
+      }
+    }
+    
+    res.json({
+      success: true,
+      message: `Fixed PDF URLs for ${updatedCount} products`,
+      updatedCount
+    });
+    
+  } catch (error) {
+    console.error('Fix PDF URLs error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fix PDF URLs'
+    });
+  }
+};
+
+// Download catalog PDF (proxy endpoint)
+const downloadCatalogPdf = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const product = await Product.findOne({ 
+      _id: id, 
+      isActive: true, 
+      $or: [{ isHidden: false }, { isHidden: { $exists: false } }] 
+    });
+
+    if (!product || !product.catalogPdf || !product.catalogPdf.publicId) {
+      return res.status(404).json({
+        success: false,
+        message: 'Catalog PDF not found'
+      });
+    }
+
+    // Generate download URL with attachment flag
+    const downloadUrl = getPdfUrl(product.catalogPdf.publicId, true);
+    
+    // Return redirect to the download URL
+    res.redirect(downloadUrl);
+
+  } catch (error) {
+    console.error('Download catalog PDF error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to download catalog PDF'
+    });
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -557,5 +871,12 @@ module.exports = {
   getProductsByCategory,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  uploadCatalogPdf,
+  deleteCatalogPdf,
+  hideProduct,
+  showProduct,
+  getAllProductsForAdmin,
+  fixPdfUrls,
+  downloadCatalogPdf
 };

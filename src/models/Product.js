@@ -117,6 +117,32 @@ const productSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true
+  },
+  isHidden: {
+    type: Boolean,
+    default: false
+  },
+  catalogPdf: {
+    url: {
+      type: String,
+      default: null
+    },
+    downloadUrl: {
+      type: String,  
+      default: null
+    },
+    publicId: {
+      type: String,
+      default: null
+    },
+    filename: {
+      type: String,
+      default: null
+    },
+    uploadedAt: {
+      type: Date,
+      default: null
+    }
   }
 }, {
   timestamps: true

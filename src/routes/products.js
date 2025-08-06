@@ -39,6 +39,9 @@ router.patch('/:id/images/associate-color', productController.associateImageWith
 // Image reordering management
 router.patch('/:id/images/reorder', productController.reorderGalleryImages);
 
+// Delete specific image from gallery
+router.delete('/:id/images/:imageIndex', productController.deleteImage);
+
 // Utility endpoint to fix existing PDF URLs
 router.post('/fix-pdf-urls', productController.fixPdfUrls);
 

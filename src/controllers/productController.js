@@ -1032,6 +1032,64 @@ const reorderGalleryImages = async (req, res) => {
   }
 };
 
+// Delete specific image from gallery (admin)
+const deleteImage = async (req, res) => {
+  try {
+    const { id, imageIndex } = req.params; // product id and image index
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    // Validate image index
+    const index = parseInt(imageIndex);
+    if (isNaN(index) || index < 0 || index >= product.gallery.length) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid image index'
+      });
+    }
+
+    // Get the image to delete
+    const imageToDelete = product.gallery[index];
+    
+    // Delete image from Cloudinary if it has a publicId
+    if (imageToDelete.publicId) {
+      try {
+        await deleteResource(imageToDelete.publicId);
+      } catch (deleteError) {
+        console.error('Cloudinary deletion error:', deleteError);
+        // Continue with database deletion even if Cloudinary deletion fails
+      }
+    }
+
+    // Remove image from gallery array
+    product.gallery.splice(index, 1);
+    await product.save();
+
+    res.json({
+      success: true,
+      message: 'Image deleted successfully',
+      data: {
+        deletedImage: imageToDelete,
+        remainingImages: product.gallery.length,
+        product: product
+      }
+    });
+
+  } catch (error) {
+    console.error('Delete image error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete image'
+    });
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -1053,5 +1111,6 @@ module.exports = {
   downloadCatalogPdf,
   associateImageWithColor,
   getImagesByColor,
-  reorderGalleryImages
+  reorderGalleryImages,
+  deleteImage
 };

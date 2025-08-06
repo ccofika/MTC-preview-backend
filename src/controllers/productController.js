@@ -827,6 +827,117 @@ const fixPdfUrls = async (req, res) => {
   }
 };
 
+// Associate image with color (admin)
+const associateImageWithColor = async (req, res) => {
+  try {
+    const { id } = req.params; // product id
+    const { imageIndex, colorName } = req.body;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    // Validate image index
+    if (imageIndex < 0 || imageIndex >= product.gallery.length) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid image index'
+      });
+    }
+
+    // Validate color name (if provided, it should exist in colors array)
+    if (colorName && colorName !== '') {
+      const colorExists = product.colors.some(color => color.name === colorName);
+      if (!colorExists) {
+        return res.status(400).json({
+          success: false,
+          message: 'Color not found in product colors'
+        });
+      }
+    }
+
+    // Update the specific image's color association
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          [`gallery.${imageIndex}.colorAssociation`]: colorName || null
+        }
+      },
+      { new: true, runValidators: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Image-color association updated successfully',
+      data: updatedProduct
+    });
+
+  } catch (error) {
+    console.error('Associate image with color error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to associate image with color'
+    });
+  }
+};
+
+// Get images by color for a product
+const getImagesByColor = async (req, res) => {
+  try {
+    const { id } = req.params; // product id
+    const { color } = req.query;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    let filteredImages;
+    if (color && color !== '') {
+      // Get images associated with the specific color
+      filteredImages = product.gallery.filter(img => img.colorAssociation === color);
+      
+      // If no color-specific images found, fall back to generic images
+      if (filteredImages.length === 0) {
+        filteredImages = product.gallery.filter(img => !img.colorAssociation);
+      }
+    } else {
+      // Get generic images (no color association)
+      filteredImages = product.gallery.filter(img => !img.colorAssociation);
+    }
+
+    // If still no images found, return all images as fallback
+    if (filteredImages.length === 0) {
+      filteredImages = product.gallery;
+    }
+
+    res.json({
+      success: true,
+      data: {
+        images: filteredImages,
+        color: color,
+        hasColorSpecificImages: product.gallery.some(img => img.colorAssociation),
+        totalImages: product.gallery.length
+      }
+    });
+
+  } catch (error) {
+    console.error('Get images by color error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get images by color'
+    });
+  }
+};
+
 // Download catalog PDF (proxy endpoint)
 const downloadCatalogPdf = async (req, res) => {
   try {
@@ -860,6 +971,67 @@ const downloadCatalogPdf = async (req, res) => {
   }
 };
 
+// Reorder gallery images (admin)
+const reorderGalleryImages = async (req, res) => {
+  try {
+    const { id } = req.params; // product id
+    const { imageOrder } = req.body; // array of { imageUrl, newPosition, colorAssociation }
+
+    if (!Array.isArray(imageOrder)) {
+      return res.status(400).json({
+        success: false,
+        message: 'imageOrder must be an array'
+      });
+    }
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    // Create new gallery array based on provided order
+    const newGallery = [];
+    
+    // Map existing images by URL for easy lookup
+    const imageMap = new Map();
+    product.gallery.forEach(img => {
+      imageMap.set(img.url, img);
+    });
+
+    // Build new gallery in specified order
+    imageOrder.forEach((orderItem, index) => {
+      const existingImage = imageMap.get(orderItem.imageUrl);
+      if (existingImage) {
+        newGallery.push({
+          ...existingImage.toObject(),
+          colorAssociation: orderItem.colorAssociation || existingImage.colorAssociation
+        });
+      }
+    });
+
+    // Update product with new gallery order
+    product.gallery = newGallery;
+    await product.save();
+
+    res.json({
+      success: true,
+      message: 'Gallery images reordered successfully',
+      data: product
+    });
+
+  } catch (error) {
+    console.error('Error reordering gallery images:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -878,5 +1050,8 @@ module.exports = {
   showProduct,
   getAllProductsForAdmin,
   fixPdfUrls,
-  downloadCatalogPdf
+  downloadCatalogPdf,
+  associateImageWithColor,
+  getImagesByColor,
+  reorderGalleryImages
 };

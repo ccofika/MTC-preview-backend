@@ -194,13 +194,34 @@ const downloadCatalogPdf = async (req, res) => {
       });
     }
 
-    // Generate download URL
-    const downloadUrl = getPdfDownloadUrl(product.catalogPdf.publicId);
+    // Get direct Cloudinary URL
+    const pdfUrl = getPdfDownloadUrl(product.catalogPdf.publicId);
     
-    console.log('Redirecting to download URL:', downloadUrl);
+    console.log('Fetching PDF from Cloudinary:', pdfUrl);
     
-    // Redirect to Cloudinary download URL
-    res.redirect(downloadUrl);
+    // Fetch PDF from Cloudinary
+    const fetch = require('node-fetch');
+    const response = await fetch(pdfUrl);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch PDF: ${response.status} ${response.statusText}`);
+    }
+
+    // Prepare filename
+    let filename = product.catalogPdf.filename || 'catalog.pdf';
+    if (!filename.endsWith('.pdf')) {
+      filename += '.pdf';
+    }
+
+    // Set proper headers for PDF download
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Cache-Control', 'no-cache');
+    
+    console.log('Serving PDF with filename:', filename);
+    
+    // Pipe the PDF content to response
+    response.body.pipe(res);
 
   } catch (error) {
     console.error('Download catalog PDF error:', error);

@@ -14,6 +14,7 @@ router.get('/sizes', productController.getAvailableSizes);
 router.get('/search', productController.searchProducts);
 router.get('/category', productController.getProductsByCategory);
 router.get('/:id/catalog/download', pdfController.downloadCatalogPdf);
+router.get('/:id/images/by-color', productController.getImagesByColor);
 router.get('/:id', productController.getProductById);
 
 // Admin routes (require authentication)
@@ -31,6 +32,12 @@ router.delete('/:id/catalog', pdfController.deleteCatalogPdf);
 // Hide/Show product management
 router.patch('/:id/hide', productController.hideProduct);
 router.patch('/:id/show', productController.showProduct);
+
+// Image-Color association management
+router.patch('/:id/images/associate-color', productController.associateImageWithColor);
+
+// Image reordering management
+router.patch('/:id/images/reorder', productController.reorderGalleryImages);
 
 // Utility endpoint to fix existing PDF URLs
 router.post('/fix-pdf-urls', productController.fixPdfUrls);

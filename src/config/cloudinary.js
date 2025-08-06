@@ -96,20 +96,11 @@ const getImageUrl = (publicId, transformations = {}) => {
 
 // Generate PDF download URL with proper filename
 const getPdfDownloadUrl = (publicId, filename = null) => {
-  const options = {
+  // For PDFs, we'll use a different approach - serve through our backend with proper headers
+  return cloudinary.url(publicId, {
     resource_type: 'raw',
-    secure: true,
-    flags: 'attachment'
-  };
-  
-  // Add filename if provided to ensure .pdf extension
-  if (filename) {
-    // Ensure filename has .pdf extension
-    const cleanFilename = filename.endsWith('.pdf') ? filename : filename + '.pdf';
-    options.flags = `attachment:${cleanFilename}`;
-  }
-  
-  return cloudinary.url(publicId, options);
+    secure: true
+  });
 };
 
 // Generate PDF view URL (for direct access)

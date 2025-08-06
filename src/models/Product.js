@@ -72,6 +72,10 @@ const productSchema = new mongoose.Schema({
     isMain: {
       type: Boolean,
       default: false
+    },
+    colorAssociation: {
+      type: String,
+      default: null // null means generic image, otherwise it should match a color name from colors array
     }
   }],
   measurements: [measurementSchema],

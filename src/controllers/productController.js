@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const HomepageSettings = require('../models/HomepageSettings');
 const { 
   uploadImage, 
   uploadPdf, 
@@ -141,21 +142,49 @@ const getProductById = async (req, res) => {
 // Get featured products
 const getFeaturedProducts = async (req, res) => {
   try {
-    const { limit = 6 } = req.query;
+    const { limit = 6, fallback = 'true' } = req.query;
 
-    // For now, get latest products as featured
-    // You can add a 'featured' field to Product model later
-    const products = await Product.find({ 
-      isActive: true,
-      'availability.inStock': true 
-    })
-      .sort({ createdAt: -1 })
-      .limit(parseInt(limit))
-      .select('-__v');
+    try {
+      // First try to get configured featured products from homepage settings
+      const settings = await HomepageSettings.getCurrentSettings();
+      const configuredProducts = await settings.getFeaturedProductsWithData();
+      
+      if (configuredProducts && configuredProducts.length > 0) {
+        // Return configured featured products, limited by the limit parameter
+        const limitedProducts = configuredProducts.slice(0, parseInt(limit));
+        
+        return res.json({
+          success: true,
+          data: limitedProducts,
+          source: 'configured'
+        });
+      }
+    } catch (homepageError) {
+      console.warn('Error fetching configured featured products, falling back to latest:', homepageError);
+    }
 
+    // Fallback to latest products if no configured featured products or fallback is enabled
+    if (fallback === 'true') {
+      const products = await Product.find({ 
+        isActive: true,
+        'availability.inStock': true 
+      })
+        .sort({ createdAt: -1 })
+        .limit(parseInt(limit))
+        .select('-__v');
+
+      return res.json({
+        success: true,
+        data: products,
+        source: 'fallback'
+      });
+    }
+
+    // No configured products and fallback disabled
     res.json({
       success: true,
-      data: products
+      data: [],
+      source: 'none'
     });
 
   } catch (error) {

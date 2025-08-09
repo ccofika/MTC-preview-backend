@@ -61,6 +61,7 @@ const productRoutes = require('./routes/products');
 const projectRoutes = require('./routes/projects');
 const adminUserRoutes = require('./routes/adminUsers');
 const siteSettingsRoutes = require('./routes/siteSettings');
+const homepageSettingsRoutes = require('./routes/homepageSettings');
 const auth = require('./middleware/auth');
 
 app.use('/api/auth', authRoutes);
@@ -69,6 +70,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/adminUsers', adminUserRoutes);
 app.use('/api/settings', siteSettingsRoutes);
+app.use('/api/homepage-settings', homepageSettingsRoutes);
 
 
 app.get('/api/health', (req, res) => {

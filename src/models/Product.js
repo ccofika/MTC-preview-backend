@@ -22,6 +22,12 @@ const colorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  category: {
+    type: String,
+    enum: ['Aloksaza', 'Plastifikacija'],
+    required: true,
+    default: 'Aloksaza'
+  },
   available: {
     type: Boolean,
     default: true
@@ -76,6 +82,11 @@ const productSchema = new mongoose.Schema({
     colorAssociation: {
       type: String,
       default: null // null means generic image, otherwise it should match a color name from colors array
+    },
+    categoryAssociation: {
+      type: String,
+      enum: ['Aloksaza', 'Plastifikacija', null],
+      default: 'Aloksaza' // Default to Aloksaza category, null means generic
     }
   }],
   measurements: [measurementSchema],

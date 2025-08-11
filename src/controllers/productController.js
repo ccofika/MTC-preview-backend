@@ -915,6 +915,62 @@ const associateImageWithColor = async (req, res) => {
   }
 };
 
+// Associate image with category (admin)
+const associateImageWithCategory = async (req, res) => {
+  try {
+    const { id } = req.params; // product id
+    const { imageIndex, category } = req.body;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
+    }
+
+    // Validate image index
+    if (imageIndex < 0 || imageIndex >= product.gallery.length) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid image index'
+      });
+    }
+
+    // Validate category (if provided, it should be one of the allowed values)
+    if (category && category !== '' && !['Aloksaza', 'Plastifikacija'].includes(category)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid category. Must be "Aloksaza" or "Plastifikacija"'
+      });
+    }
+
+    // Update the specific image's category association
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          [`gallery.${imageIndex}.categoryAssociation`]: category || null
+        }
+      },
+      { new: true, runValidators: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Image-category association updated successfully',
+      data: updatedProduct
+    });
+
+  } catch (error) {
+    console.error('Associate image with category error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to associate image with category'
+    });
+  }
+};
+
 // Get images by color for a product
 const getImagesByColor = async (req, res) => {
   try {
@@ -1139,6 +1195,7 @@ module.exports = {
   fixPdfUrls,
   downloadCatalogPdf,
   associateImageWithColor,
+  associateImageWithCategory,
   getImagesByColor,
   reorderGalleryImages,
   deleteImage

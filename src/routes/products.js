@@ -36,6 +36,9 @@ router.patch('/:id/show', productController.showProduct);
 // Image-Color association management
 router.patch('/:id/images/associate-color', productController.associateImageWithColor);
 
+// Image-Category association management
+router.patch('/:id/images/associate-category', productController.associateImageWithCategory);
+
 // Image reordering management
 router.patch('/:id/images/reorder', productController.reorderGalleryImages);
 

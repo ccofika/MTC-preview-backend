@@ -4,6 +4,41 @@ require('dotenv').config();
 
 const newProducts = [
   {
+    title: 'ALT 7500 - Termoizolacioni aluminijumski sistem',
+    description: 'ALT 7500 predstavlja vrhunski termoizolacioni aluminijumski sistem namenjen za najzahtevnije projekte. Sa dubinom profila od 75mm i mogućnošću ugradnje stakla do 52mm, ovaj sistem pruža izuzetne toplotne performanse. Idealan za pasivne kuće i objekte sa visokim energetskim standardima.',
+    gallery: [],
+    catalog: {
+      catalogNumber: 'ALT-7500',
+      category: 'Aluminijumski sistemi',
+      subcategory: 'Termoizolacioni sistemi',
+      tags: ['aluminijum', 'termoizolacija', 'pasivna kuća', 'energetska efikasnost', 'ALT 7500']
+    },
+    colors: [
+      { name: 'RAL 9016 Bela', hexCode: '#F1F0EA', available: true },
+      { name: 'RAL 7016 Antracit siva', hexCode: '#383E42', available: true },
+      { name: 'RAL 9005 Crna', hexCode: '#0A0A0A', available: true },
+      { name: 'RAL 1015 Svetlo žuta', hexCode: '#E6D690', available: false }
+    ],
+    sizes: [
+      { name: 'Standard 75mm', code: 'STD75', available: true },
+      { name: 'Premium 75mm', code: 'PREM75', available: true }
+    ],
+    price: {
+      amount: 65000,
+      currency: 'RSD'
+    },
+    availability: {
+      inStock: true,
+      quantity: 75
+    },
+    measurements: [
+      {
+        size: 'Standard 75mm',
+        dimensions: { length: '1400', width: '1200', height: '75', weight: '3.2' }
+      }
+    ]
+  },
+  {
     title: 'ALS 57 - Aluminijumski sistem za prozore',
     description: 'ALS 57 je moderni aluminijumski prozorski sistem koji kombinuje estetiku i funkcionalnost. Idealan je za stambene i poslovne objekte koji zahtevaju visoke performanse toplotne izolacije i dugotrajnost. Sistem ima dubinu od 57mm i omogućava ugradnju stakla do 32mm debljine.',
     gallery: [],
@@ -40,37 +75,75 @@ const newProducts = [
     ]
   },
   {
-    title: 'ALT 7500 - Termoizolacioni aluminijumski sistem',
-    description: 'ALT 7500 predstavlja vrhunski termoizolacioni aluminijumski sistem namenjen za najzahtevnije projekte. Sa dubinom profila od 75mm i mogućnošću ugradnje stakla do 52mm, ovaj sistem pruža izuzetne toplotne performanse. Idealan za pasivne kuće i objekte sa visokim energetskim standardima.',
+    title: 'ALS 57 Vrata - Aluminijumski sistem za vrata',
+    description: 'ALS 57 Vrata je specijalizovani sistem za ulazna i terasa vrata baziran na ALS 57 platformi. Kombinuje dokazane performanse ALS 57 sistema sa dodatnim karakteristikama potrebnim za vrata. Pruža odličnu sigurnost, toplotnu izolaciju i trajnost.',
     gallery: [],
     catalog: {
-      catalogNumber: 'ALT-7500',
+      catalogNumber: 'ALS-57-VRATA',
       category: 'Aluminijumski sistemi',
-      subcategory: 'Termoizolacioni sistemi',
-      tags: ['aluminijum', 'termoizolacija', 'pasivna kuća', 'energetska efikasnost', 'ALT 7500']
+      subcategory: 'Sistemi za vrata',
+      tags: ['aluminijum', 'vrata', 'ALS 57', 'ulazna vrata', 'terasa vrata']
     },
     colors: [
       { name: 'RAL 9016 Bela', hexCode: '#F1F0EA', available: true },
       { name: 'RAL 7016 Antracit siva', hexCode: '#383E42', available: true },
+      { name: 'RAL 8014 Sepija braon', hexCode: '#3E2723', available: true },
       { name: 'RAL 9005 Crna', hexCode: '#0A0A0A', available: true },
-      { name: 'RAL 1015 Svetlo žuta', hexCode: '#E6D690', available: false }
+      { name: 'Prirodni aluminijum', hexCode: '#C0C0C0', available: true }
     ],
     sizes: [
-      { name: 'Standard 75mm', code: 'STD75', available: true },
-      { name: 'Premium 75mm', code: 'PREM75', available: true }
+      { name: 'Jednostruko', code: 'SINGLE', available: true },
+      { name: 'Dvostruko', code: 'DOUBLE', available: true },
+      { name: 'Klizno', code: 'SLIDE', available: true }
     ],
     price: {
-      amount: 65000,
+      amount: 75000,
       currency: 'RSD'
     },
     availability: {
       inStock: true,
-      quantity: 75
+      quantity: 60
     },
     measurements: [
       {
-        size: 'Standard 75mm',
-        dimensions: { length: '1400', width: '1200', height: '75', weight: '3.2' }
+        size: 'Standard',
+        dimensions: { length: '2100', width: '900', height: '57', weight: '35' }
+      }
+    ]
+  },
+  {
+    title: 'Staklene Ograde - Premium stakleni baluster sistem',
+    description: 'Premium staklene ograde sa aluminijumskim nosačima predstavljaju savršen spoj funkcionalnosti i estetike. Idealne su za moderne objekte, terase, balkone i stepenice. Pružaju maksimalnu transparentnost i osećaj prostora uz najveću sigurnost.',
+    gallery: [],
+    catalog: {
+      catalogNumber: 'STGL-OGRADE',
+      category: 'Ograde i balustrade',
+      subcategory: 'Staklene ograde',
+      tags: ['staklo', 'ograda', 'baluster', 'moderna', 'transparentnost']
+    },
+    colors: [
+      { name: 'Inox finish', hexCode: '#C0C0C0', available: true },
+      { name: 'RAL 7016 Antracit siva', hexCode: '#383E42', available: true },
+      { name: 'RAL 9005 Crna mat', hexCode: '#0A0A0A', available: true },
+      { name: 'RAL 9016 Bela', hexCode: '#F1F0EA', available: true }
+    ],
+    sizes: [
+      { name: 'Standard 1100mm', code: 'STD1100', available: true },
+      { name: 'Visoka 1200mm', code: 'HIGH1200', available: true },
+      { name: 'Ekstremno visoka 1400mm', code: 'EXHIGH1400', available: true }
+    ],
+    price: {
+      amount: 18000,
+      currency: 'RSD'
+    },
+    availability: {
+      inStock: true,
+      quantity: 85
+    },
+    measurements: [
+      {
+        size: 'Standard 1100mm',
+        dimensions: { length: '2000', width: '1100', height: '50', weight: '12' }
       }
     ]
   },

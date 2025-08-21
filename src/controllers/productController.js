@@ -436,6 +436,12 @@ const createProduct = async (req, res) => {
     if (typeof productData.availability === 'string') {
       productData.availability = JSON.parse(productData.availability);
     }
+    if (typeof productData.plastificationTypes === 'string') {
+      productData.plastificationTypes = JSON.parse(productData.plastificationTypes);
+    }
+    
+    // Debug log
+    console.log('Received plastificationTypes:', productData.plastificationTypes);
 
     const product = new Product(productData);
     const savedProduct = await product.save();
@@ -522,6 +528,12 @@ const updateProduct = async (req, res) => {
     if (typeof updateData.availability === 'string') {
       updateData.availability = JSON.parse(updateData.availability);
     }
+    if (typeof updateData.plastificationTypes === 'string') {
+      updateData.plastificationTypes = JSON.parse(updateData.plastificationTypes);
+    }
+    
+    // Debug log
+    console.log('Updating plastificationTypes:', updateData.plastificationTypes);
 
     const updatedProduct = await Product.findByIdAndUpdate(
       id,

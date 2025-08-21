@@ -62,6 +62,24 @@ const productSchema = new mongoose.Schema({
     trim: true,
     maxlength: [2000, 'Description cannot exceed 2000 characters']
   },
+  plastificationTypes: {
+    sjajna: {
+      type: Boolean,
+      default: false
+    },
+    matt: {
+      type: Boolean,
+      default: false
+    },
+    strukturalna: {
+      type: Boolean,
+      default: false
+    },
+    showOnProduct: {
+      type: Boolean,
+      default: false
+    }
+  },
   gallery: [{
     url: {
       type: String,

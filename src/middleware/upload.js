@@ -5,7 +5,7 @@ const path = require('path');
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB limit per file
+    fileSize: 50 * 1024 * 1024, // 50MB limit per file (increased for PDF catalogs)
     files: 10 // Multiple file upload (max 10 files)
   },
   fileFilter: (req, file, cb) => {
@@ -41,7 +41,7 @@ const handleUploadError = (error, req, res, next) => {
     if (error.code === 'LIMIT_FILE_SIZE') {
       return res.status(400).json({
         success: false,
-        message: 'File too large. Maximum size is 10MB.'
+        message: 'File too large. Maximum size is 50MB.'
       });
     }
     if (error.code === 'LIMIT_FILE_COUNT') {
@@ -68,5 +68,22 @@ const handleUploadError = (error, req, res, next) => {
   next(error);
 };
 
+// Create a specialized uploader for PDF files with larger limit
+const pdfUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 100 * 1024 * 1024, // 100MB limit for PDF files
+    files: 1
+  },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === 'application/pdf') {
+      cb(null, true);
+    } else {
+      cb(new Error('Only PDF files are allowed for catalog uploads'), false);
+    }
+  }
+});
+
 module.exports = upload;
+module.exports.pdfUpload = pdfUpload;
 module.exports.handleUploadError = handleUploadError;

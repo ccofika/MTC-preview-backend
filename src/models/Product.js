@@ -15,8 +15,18 @@ const measurementSchema = new mongoose.Schema({
 
 const colorSchema = new mongoose.Schema({
   name: {
-    type: String,
-    required: true
+    sr: {
+      type: String,
+      required: true
+    },
+    en: {
+      type: String,
+      default: null
+    },
+    de: {
+      type: String,
+      default: null
+    }
   },
   hexCode: {
     type: String,
@@ -36,8 +46,18 @@ const colorSchema = new mongoose.Schema({
 
 const sizeSchema = new mongoose.Schema({
   name: {
-    type: String,
-    required: true
+    sr: {
+      type: String,
+      required: true
+    },
+    en: {
+      type: String,
+      default: null
+    },
+    de: {
+      type: String,
+      default: null
+    }
   },
   code: {
     type: String,
@@ -51,16 +71,44 @@ const sizeSchema = new mongoose.Schema({
 
 const productSchema = new mongoose.Schema({
   title: {
-    type: String,
-    required: [true, 'Product title is required'],
-    trim: true,
-    maxlength: [200, 'Title cannot exceed 200 characters']
+    sr: {
+      type: String,
+      required: [true, 'Product title (Serbian) is required'],
+      trim: true,
+      maxlength: [200, 'Title cannot exceed 200 characters']
+    },
+    en: {
+      type: String,
+      trim: true,
+      maxlength: [200, 'Title cannot exceed 200 characters'],
+      default: null
+    },
+    de: {
+      type: String,
+      trim: true,
+      maxlength: [200, 'Title cannot exceed 200 characters'],
+      default: null
+    }
   },
   description: {
-    type: String,
-    required: [true, 'Product description is required'],
-    trim: true,
-    maxlength: [2000, 'Description cannot exceed 2000 characters']
+    sr: {
+      type: String,
+      required: [true, 'Product description (Serbian) is required'],
+      trim: true,
+      maxlength: [2000, 'Description cannot exceed 2000 characters']
+    },
+    en: {
+      type: String,
+      trim: true,
+      maxlength: [2000, 'Description cannot exceed 2000 characters'],
+      default: null
+    },
+    de: {
+      type: String,
+      trim: true,
+      maxlength: [2000, 'Description cannot exceed 2000 characters'],
+      default: null
+    }
   },
   plastificationTypes: {
     sjajna: {
@@ -115,13 +163,38 @@ const productSchema = new mongoose.Schema({
       unique: true
     },
     category: {
-      type: String,
-      required: true
+      sr: {
+        type: String,
+        required: true
+      },
+      en: {
+        type: String,
+        default: null
+      },
+      de: {
+        type: String,
+        default: null
+      }
     },
     subcategory: {
-      type: String
+      sr: {
+        type: String,
+        default: null
+      },
+      en: {
+        type: String,
+        default: null
+      },
+      de: {
+        type: String,
+        default: null
+      }
     },
-    tags: [String]
+    tags: {
+      sr: [String],
+      en: [String],
+      de: [String]
+    }
   },
   colors: [colorSchema],
   sizes: [sizeSchema],

@@ -3,6 +3,7 @@ const router = express.Router();
 const productController = require('../controllers/productController');
 const pdfController = require('../controllers/pdfController');
 const upload = require('../middleware/upload');
+const { pdfUpload } = require('../middleware/upload');
 const auth = require('../middleware/auth');
 
 // Public routes
@@ -26,7 +27,7 @@ router.put('/:id', upload.array('images', 10), productController.updateProduct);
 router.delete('/:id', productController.deleteProduct);
 
 // Catalog PDF management  
-router.post('/:id/catalog', upload.single('catalogPdf'), pdfController.uploadCatalogPdf);
+router.post('/:id/catalog', pdfUpload.single('catalogPdf'), pdfController.uploadCatalogPdf);
 router.delete('/:id/catalog', pdfController.deleteCatalogPdf);
 
 // Hide/Show product management

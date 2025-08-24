@@ -2,16 +2,44 @@ const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
   title: {
-    type: String,
-    required: [true, 'Project title is required'],
-    trim: true,
-    maxlength: [200, 'Title cannot exceed 200 characters']
+    sr: {
+      type: String,
+      required: [true, 'Project title (Serbian) is required'],
+      trim: true,
+      maxlength: [200, 'Title cannot exceed 200 characters']
+    },
+    en: {
+      type: String,
+      trim: true,
+      maxlength: [200, 'Title cannot exceed 200 characters'],
+      default: null
+    },
+    de: {
+      type: String,
+      trim: true,
+      maxlength: [200, 'Title cannot exceed 200 characters'],
+      default: null
+    }
   },
   description: {
-    type: String,
-    required: [true, 'Project description is required'],
-    trim: true,
-    maxlength: [3000, 'Description cannot exceed 3000 characters']
+    sr: {
+      type: String,
+      required: [true, 'Project description (Serbian) is required'],
+      trim: true,
+      maxlength: [3000, 'Description cannot exceed 3000 characters']
+    },
+    en: {
+      type: String,
+      trim: true,
+      maxlength: [3000, 'Description cannot exceed 3000 characters'],
+      default: null
+    },
+    de: {
+      type: String,
+      trim: true,
+      maxlength: [3000, 'Description cannot exceed 3000 characters'],
+      default: null
+    }
   },
   gallery: [{
     url: {
@@ -36,21 +64,61 @@ const projectSchema = new mongoose.Schema({
     }
   }],
   category: {
-    type: String,
-    required: true
+    sr: {
+      type: String,
+      required: true
+    },
+    en: {
+      type: String,
+      default: null
+    },
+    de: {
+      type: String,
+      default: null
+    }
   },
   client: {
-    type: String,
-    trim: true
+    sr: {
+      type: String,
+      trim: true,
+      default: null
+    },
+    en: {
+      type: String,
+      trim: true,
+      default: null
+    },
+    de: {
+      type: String,
+      trim: true,
+      default: null
+    }
   },
   location: {
-    type: String,
-    trim: true
+    sr: {
+      type: String,
+      trim: true,
+      default: null
+    },
+    en: {
+      type: String,
+      trim: true,
+      default: null
+    },
+    de: {
+      type: String,
+      trim: true,
+      default: null
+    }
   },
   completionDate: {
     type: Date
   },
-  tags: [String],
+  tags: {
+    sr: [String],
+    en: [String],
+    de: [String]
+  },
   featured: {
     type: Boolean,
     default: false

@@ -1,0 +1,838 @@
+[
+  {
+    "_id": "689249908e1e7a23a258f4fa",
+    "title": "ALS 57",
+    "description": "ALS 57 je moderni aluminijumski prozorski sistem koji kombinuje estetiku i funkcionalnost. Idealan je za stambene i poslovne objekte koji ne zahtevaju visoke performanse toplotne izolacije i dugotrajnost. Sistem ima dubinu od 57mm i omogućava ugradnju stakla do 32mm debljine.",
+    "gallery": [
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755273280/nissal/products/pbetyzcc82h3dc36m2xj.jpg",
+        "publicId": "nissal/products/pbetyzcc82h3dc36m2xj",
+        "alt": "ALS 57",
+        "isMain": true,
+        "colorAssociation": "E-0 prirodna boja aluminijuma",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f584ad830098d8d3767de"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755273282/nissal/products/x2yatkfy4bbupn3lqecz.jpg",
+        "publicId": "nissal/products/x2yatkfy4bbupn3lqecz",
+        "alt": "ALS 57",
+        "isMain": false,
+        "colorAssociation": "E-1 sampanjac",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f584ad830098d8d3767df"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755273284/nissal/products/w8grt8bmvledg3l0fkt1.jpg",
+        "publicId": "nissal/products/w8grt8bmvledg3l0fkt1",
+        "alt": "ALS 57",
+        "isMain": false,
+        "colorAssociation": "E-2 bronza",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f584ad830098d8d3767e0"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755273286/nissal/products/yloveq1b2dicq3g4zqp3.jpg",
+        "publicId": "nissal/products/yloveq1b2dicq3g4zqp3",
+        "alt": "ALS 57",
+        "isMain": false,
+        "colorAssociation": "E-3 tamna bronza",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f584ad830098d8d3767e1"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755273287/nissal/products/ufe3cdptadokzfc3eqau.jpg",
+        "publicId": "nissal/products/ufe3cdptadokzfc3eqau",
+        "alt": "ALS 57",
+        "isMain": false,
+        "colorAssociation": "E-4 braon",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f584ad830098d8d3767e2"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755273289/nissal/products/sp3dsovccyy8o8frdgn9.jpg",
+        "publicId": "nissal/products/sp3dsovccyy8o8frdgn9",
+        "alt": "ALS 57",
+        "isMain": false,
+        "colorAssociation": "E-5 crna",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f584ad830098d8d3767e3"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755958040/nissal/products/r8y7c5nb7ibwupfqakrt.jpg",
+        "publicId": "nissal/products/r8y7c5nb7ibwupfqakrt",
+        "alt": "ALS 57",
+        "isMain": false,
+        "colorAssociation": null,
+        "categoryAssociation": "Aloksaza",
+        "_id": "68a9cb179a742503dd460f46"
+      }
+    ],
+    "measurements": [
+      {
+        "size": "Standard",
+        "dimensions": {
+          "length": 1200,
+          "width": 1000,
+          "height": 57,
+          "weight": 2.1
+        }
+      }
+    ],
+    "catalog": {
+      "catalogNumber": "ALS-57",
+      "category": "Prozorski sistemi",
+      "subcategory": "Prozorski sistemi",
+      "tags": [
+        "aluminijum",
+        "prozor",
+        "termo prekid",
+        "energetska efikasnost",
+        "ALS 57"
+      ]
+    },
+    "colors": [
+      {
+        "name": "E-0 prirodna boja aluminijuma",
+        "hexCode": "#74736f",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-1 sampanjac",
+        "hexCode": "#6e6252",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-2 bronza",
+        "hexCode": "#977f5b",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-3 tamna bronza",
+        "hexCode": "#816035",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-4 braon",
+        "hexCode": "#57463e",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-5 crna",
+        "hexCode": "#2d261e",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "RAL 7016",
+        "hexCode": "#383e42",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9010",
+        "hexCode": "#f1ece1",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9006",
+        "hexCode": "#a1a1a0",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9005",
+        "hexCode": "#0e0e10",
+        "category": "Plastifikacija",
+        "available": true
+      }
+    ],
+    "sizes": [],
+    "price": {
+      "amount": 42000,
+      "currency": "RSD"
+    },
+    "availability": {
+      "inStock": true,
+      "quantity": 100
+    },
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2025-08-05T18:12:32.935Z",
+    "updatedAt": "2025-08-23T14:07:19.198Z",
+    "plastificationTypes": {
+      "sjajna": true,
+      "matt": true,
+      "strukturalna": true,
+      "showOnProduct": true
+    },
+    "catalogPdf": {
+      "url": "https://res.cloudinary.com/dr9mupavb/raw/upload/v1/nissal/catalogs/catalog_689249908e1e7a23a258f4fa_1755957157222",
+      "downloadUrl": "https://res.cloudinary.com/dr9mupavb/raw/upload/v1/nissal/catalogs/catalog_689249908e1e7a23a258f4fa_1755957157222",
+      "publicId": "nissal/catalogs/catalog_689249908e1e7a23a258f4fa_1755957157222",
+      "filename": "Katalog ALS 57.pdf",
+      "uploadedAt": "2025-08-23T13:52:41.200Z"
+    }
+  },
+  {
+    "_id": "689249908e1e7a23a258f4fb",
+    "title": "ALT 7500",
+    "description": "ALT 7500 predstavlja vrhunski termoizolacioni aluminijumski sistem namenjen za najzahtevnije projekte. Sa dubinom profila od 75mm i mogućnošću ugradnje stakla do 52mm, ovaj sistem pruža izuzetne toplotne performanse. Idealan za pasivne kuće i objekte sa visokim energetskim standardima.",
+    "gallery": [
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272364/nissal/products/wqsv0l1dzyzqxiotqt3n.jpg",
+        "publicId": "nissal/products/wqsv0l1dzyzqxiotqt3n",
+        "alt": "ALT 7500",
+        "isMain": true,
+        "colorAssociation": "E-0 prirodna boja aluminijuma",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f54b6d830098d8d376541"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272365/nissal/products/jf8pzn8htzghesxsad3f.jpg",
+        "publicId": "nissal/products/jf8pzn8htzghesxsad3f",
+        "alt": "ALT 7500",
+        "isMain": false,
+        "colorAssociation": "E-1 sampanjac",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f54b6d830098d8d376542"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272367/nissal/products/q0witllltmlo9qfumdwr.jpg",
+        "publicId": "nissal/products/q0witllltmlo9qfumdwr",
+        "alt": "ALT 7500",
+        "isMain": false,
+        "colorAssociation": "E-2 bronza",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f54b6d830098d8d376543"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272369/nissal/products/iv7hqlv2vzuyopfogmk4.jpg",
+        "publicId": "nissal/products/iv7hqlv2vzuyopfogmk4",
+        "alt": "ALT 7500",
+        "isMain": false,
+        "colorAssociation": "E-3 tamna bronza",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f54b6d830098d8d376544"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272370/nissal/products/hssaw75gvfyfpiye8lnr.jpg",
+        "publicId": "nissal/products/hssaw75gvfyfpiye8lnr",
+        "alt": "ALT 7500",
+        "isMain": false,
+        "colorAssociation": "E-4 braon",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f54b6d830098d8d376545"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272371/nissal/products/a5mqma1fk75jbyqwavxg.jpg",
+        "publicId": "nissal/products/a5mqma1fk75jbyqwavxg",
+        "alt": "ALT 7500",
+        "isMain": false,
+        "colorAssociation": "E-5 crna",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f54b6d830098d8d376546"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755958025/nissal/products/jsn0sxgafjeq5vwuof88.jpg",
+        "publicId": "nissal/products/jsn0sxgafjeq5vwuof88",
+        "alt": "ALT 7500",
+        "isMain": false,
+        "colorAssociation": null,
+        "categoryAssociation": "Aloksaza",
+        "_id": "68a9cb079a742503dd460efd"
+      }
+    ],
+    "measurements": [
+      {
+        "size": "Standard 75mm",
+        "dimensions": {
+          "length": 1400,
+          "width": 1200,
+          "height": 75,
+          "weight": 3.2
+        }
+      }
+    ],
+    "catalog": {
+      "catalogNumber": "ALT-7500",
+      "category": "Prozorski sistemi",
+      "subcategory": "Termoizolacioni sistemi",
+      "tags": [
+        "aluminijum",
+        "termoizolacija",
+        "pasivna kuća",
+        "energetska efikasnost",
+        "ALT 7500"
+      ]
+    },
+    "colors": [
+      {
+        "name": "E-0 prirodna boja aluminijuma",
+        "hexCode": "#7c7b77",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-1 sampanjac",
+        "hexCode": "#6f6355",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-2 bronza",
+        "hexCode": "#927a55",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-3 tamna bronza",
+        "hexCode": "#84623d",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-4 braon",
+        "hexCode": "#594840",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-5 crna",
+        "hexCode": "#2c251d",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "RAL 7016",
+        "hexCode": "#383e42",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9010",
+        "hexCode": "#f1ece1",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9006",
+        "hexCode": "#a1a1a0",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9005",
+        "hexCode": "#0e0e10",
+        "category": "Plastifikacija",
+        "available": true
+      }
+    ],
+    "sizes": [],
+    "price": {
+      "amount": 65000,
+      "currency": "RSD"
+    },
+    "availability": {
+      "inStock": true,
+      "quantity": 75
+    },
+    "isActive": true,
+    "__v": 43,
+    "createdAt": "2025-08-05T18:12:32.937Z",
+    "updatedAt": "2025-08-23T14:07:03.599Z",
+    "isHidden": false,
+    "plastificationTypes": {
+      "sjajna": true,
+      "matt": true,
+      "strukturalna": true,
+      "showOnProduct": true
+    },
+    "catalogPdf": {
+      "url": "https://res.cloudinary.com/dr9mupavb/raw/upload/v1/nissal/catalogs/catalog_689249908e1e7a23a258f4fb_1755957183496",
+      "downloadUrl": "https://res.cloudinary.com/dr9mupavb/raw/upload/v1/nissal/catalogs/catalog_689249908e1e7a23a258f4fb_1755957183496",
+      "publicId": "nissal/catalogs/catalog_689249908e1e7a23a258f4fb_1755957183496",
+      "filename": "KATALOG ALT 7500.pdf",
+      "uploadedAt": "2025-08-23T13:53:08.827Z"
+    }
+  },
+  {
+    "_id": "689249908e1e7a23a258f4fd",
+    "title": "ALD 9100 - Premium aluminijumski sistem za vrata",
+    "description": "ALD 9100 je premium aluminijumski sistem specifično dizajniran za ulazna vrata i terasa vrata. Sa robusnom konstrukcijom dubine 91mm, ovaj sistem pruža maksimalnu sigurnost, toplotnu izolaciju i trajnost. Idealan je za luksuzne stambene i prestižne poslovne objekte.",
+    "gallery": [],
+    "measurements": [
+      {
+        "size": "Jednostruko",
+        "dimensions": {
+          "length": 2100,
+          "width": 900,
+          "height": 91,
+          "weight": 45
+        }
+      }
+    ],
+    "catalog": {
+      "catalogNumber": "ALD-9100",
+      "category": "Aluminijumski sistemi",
+      "subcategory": "Sistemi za vrata",
+      "tags": [
+        "aluminijum",
+        "vrata",
+        "premium",
+        "sigurnost",
+        "ALD 9100"
+      ]
+    },
+    "colors": [
+      {
+        "name": "RAL 9016 Bela",
+        "hexCode": "#F1F0EA",
+        "available": true
+      },
+      {
+        "name": "RAL 7016 Antracit siva",
+        "hexCode": "#383E42",
+        "available": true
+      },
+      {
+        "name": "RAL 9005 Crna",
+        "hexCode": "#0A0A0A",
+        "available": true
+      },
+      {
+        "name": "RAL 3004 Purpurno crvena",
+        "hexCode": "#75151E",
+        "available": true
+      },
+      {
+        "name": "Prirodni aluminijum",
+        "hexCode": "#C0C0C0",
+        "available": true
+      }
+    ],
+    "sizes": [
+      {
+        "name": "Jednostruko",
+        "code": "SINGLE",
+        "available": true
+      },
+      {
+        "name": "Dvostruko",
+        "code": "DOUBLE",
+        "available": true
+      },
+      {
+        "name": "Klizno",
+        "code": "SLIDE",
+        "available": true
+      }
+    ],
+    "price": {
+      "amount": 95000,
+      "currency": "RSD"
+    },
+    "availability": {
+      "inStock": true,
+      "quantity": 45
+    },
+    "isActive": true,
+    "__v": 0,
+    "createdAt": "2025-08-05T18:12:32.937Z",
+    "updatedAt": "2025-08-13T16:35:49.836Z",
+    "isHidden": true
+  },
+  {
+    "_id": "68973930a96a11a5f0aea1b7",
+    "title": "SOLAR",
+    "description": "SOLAR podkonstrukcija predstavlja visokokvalitetno rešenje za montažu solarnih panela, izrađeno od izdržljivih aluminijumskih profila otpornih na koroziju. Sistem omogućava jednostavnu instalaciju, visoku stabilnost i dugotrajnost u svim vremenskim uslovima. Pogodan je za krovne i zemljane instalacije, uz mogućnost prilagođavanja različitim tipovima solarnih modula.",
+    "measurements": [
+      {
+        "size": "Standard",
+        "dimensions": {
+          "length": 40,
+          "width": 40,
+          "height": 3000,
+          "weight": 5.8
+        }
+      },
+      {
+        "size": "Premium",
+        "dimensions": {
+          "length": 45,
+          "width": 45,
+          "height": 3000,
+          "weight": 6.5
+        }
+      }
+    ],
+    "catalog": {
+      "catalogNumber": "ALU-003",
+      "category": "Industrijski profili",
+      "subcategory": "Solarni sistemi",
+      "tags": [
+        "solarni paneli",
+        "podkonstrukcija",
+        "aluminijum",
+        "montaža",
+        "fotonaponski sistemi",
+        "SOLAR"
+      ]
+    },
+    "colors": [
+      {
+        "name": "RAL crna",
+        "hexCode": "#000000",
+        "available": true
+      },
+      {
+        "name": "RAL prirodni aluminijum",
+        "hexCode": "#b3b3b3",
+        "available": true
+      }
+    ],
+    "sizes": [
+      {
+        "name": "Standard",
+        "code": "40×40mm profil (STD40)",
+        "available": true
+      },
+      {
+        "name": "Premium",
+        "code": "45×45mm profil (PREM45)",
+        "available": true
+      }
+    ],
+    "price": {
+      "amount": 1,
+      "currency": "RSD"
+    },
+    "availability": {
+      "inStock": true,
+      "quantity": 0
+    },
+    "isActive": true,
+    "isHidden": true,
+    "catalogPdf": {
+      "url": null,
+      "downloadUrl": null,
+      "publicId": null,
+      "filename": null,
+      "uploadedAt": null
+    },
+    "gallery": [],
+    "createdAt": "2025-08-09T12:04:00.805Z",
+    "updatedAt": "2025-08-13T16:35:38.473Z",
+    "__v": 0
+  },
+  {
+    "_id": "6897786c34bf4bd28c9f4bba",
+    "title": "ALS 57 - Vrata sistemi",
+    "description": "ALS 57 je savremeni aluminijumski sistem  bez termo prekida. Namenjen je za sve vrste unutrasnjih pregrada, vrata i prozora. Idealan je za stambene i komercijalne objekte. Sistem sadrzi profile ravnog i oblog dizajna.",
+    "measurements": [
+      {
+        "size": "Standard",
+        "dimensions": {
+          "length": 1200,
+          "width": 2100,
+          "height": 57,
+          "weight": 28
+        }
+      }
+    ],
+    "catalog": {
+      "catalogNumber": "ALU-004",
+      "category": "Vrata sistemi",
+      "subcategory": "Aluminijumski sistemi",
+      "tags": [
+        "aluminijum",
+        "vrata",
+        "ALS 57",
+        "termoizolacija",
+        "energetska efikasnost",
+        "sigurnost"
+      ]
+    },
+    "colors": [
+      {
+        "name": "E-0 prirodna boja aluminijuma",
+        "hexCode": "#7b7a76",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-1 Sampanjac",
+        "hexCode": "#6f6355",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-2 bronza",
+        "hexCode": "#957d57",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-3 tamna bronza",
+        "hexCode": "#836239",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-4 braon",
+        "hexCode": "#5c4b43",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-5 crna",
+        "hexCode": "#322922",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "RAL 7016",
+        "hexCode": "#383e42",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9010",
+        "hexCode": "#f1ece1",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9006",
+        "hexCode": "#a1a1a0",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9005",
+        "hexCode": "#0e0e10",
+        "category": "Plastifikacija",
+        "available": true
+      }
+    ],
+    "sizes": [],
+    "price": {
+      "amount": 1,
+      "currency": "RSD"
+    },
+    "availability": {
+      "inStock": true,
+      "quantity": 0
+    },
+    "isActive": true,
+    "isHidden": false,
+    "catalogPdf": {
+      "url": "https://res.cloudinary.com/dr9mupavb/raw/upload/v1/nissal/catalogs/catalog_6897786c34bf4bd28c9f4bba_1755957195841",
+      "downloadUrl": "https://res.cloudinary.com/dr9mupavb/raw/upload/v1/nissal/catalogs/catalog_6897786c34bf4bd28c9f4bba_1755957195841",
+      "publicId": "nissal/catalogs/catalog_6897786c34bf4bd28c9f4bba_1755957195841",
+      "filename": "Katalog ALS 57.pdf",
+      "uploadedAt": "2025-08-23T13:53:20.157Z"
+    },
+    "gallery": [
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272632/nissal/products/q7p4ldh0aaptvulbmhb5.jpg",
+        "publicId": "nissal/products/q7p4ldh0aaptvulbmhb5",
+        "alt": "ALS 57 - Vrata sistemi",
+        "isMain": true,
+        "colorAssociation": "E-0 prirodna boja aluminijuma",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f55bfd830098d8d376687"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272633/nissal/products/j4oudczqordwdwlsdvc6.jpg",
+        "publicId": "nissal/products/j4oudczqordwdwlsdvc6",
+        "alt": "ALS 57 - Vrata sistemi",
+        "isMain": false,
+        "colorAssociation": "E-1 Sampanjac",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f55bfd830098d8d376688"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272634/nissal/products/cjeaiuvm1vqnxm2syd7b.jpg",
+        "publicId": "nissal/products/cjeaiuvm1vqnxm2syd7b",
+        "alt": "ALS 57 - Vrata sistemi",
+        "isMain": false,
+        "colorAssociation": "E-2 bronza",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f55bfd830098d8d376689"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272635/nissal/products/xaa7fjpmz8pxbw8dz8xu.jpg",
+        "publicId": "nissal/products/xaa7fjpmz8pxbw8dz8xu",
+        "alt": "ALS 57 - Vrata sistemi",
+        "isMain": false,
+        "colorAssociation": "E-3 tamna bronza",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f55bfd830098d8d37668a"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272637/nissal/products/kzdrap8zvplbq5lik33y.jpg",
+        "publicId": "nissal/products/kzdrap8zvplbq5lik33y",
+        "alt": "ALS 57 - Vrata sistemi",
+        "isMain": false,
+        "colorAssociation": "E-4 braon",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f55bfd830098d8d37668b"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755272638/nissal/products/zqzrgiyudkgrxhmqlbcl.jpg",
+        "publicId": "nissal/products/zqzrgiyudkgrxhmqlbcl",
+        "alt": "ALS 57 - Vrata sistemi",
+        "isMain": false,
+        "colorAssociation": "E-5 crna",
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f55bfd830098d8d37668c"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755958006/nissal/products/waawcju3sgtf4mcz0abu.jpg",
+        "publicId": "nissal/products/waawcju3sgtf4mcz0abu",
+        "alt": "ALS 57 - Vrata sistemi",
+        "isMain": false,
+        "colorAssociation": null,
+        "categoryAssociation": "Aloksaza",
+        "_id": "68a9caf49a742503dd460eb6"
+      }
+    ],
+    "createdAt": "2025-08-09T16:33:48.257Z",
+    "updatedAt": "2025-08-23T14:06:44.990Z",
+    "__v": 0,
+    "plastificationTypes": {
+      "sjajna": true,
+      "matt": true,
+      "strukturalna": true,
+      "showOnProduct": true
+    }
+  },
+  {
+    "_id": "689f58d5d830098d8d3769e5",
+    "title": "Staklene Ograde",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    "gallery": [
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755273429/nissal/products/y9gjtgwb85bdinjyxsbu.jpg",
+        "publicId": "nissal/products/y9gjtgwb85bdinjyxsbu",
+        "alt": "Staklene Ograde",
+        "isMain": true,
+        "colorAssociation": null,
+        "categoryAssociation": "Aloksaza",
+        "_id": "689f58d5d830098d8d3769e6"
+      },
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1755957992/nissal/products/cwsa9suogdcdqnxkquf4.jpg",
+        "publicId": "nissal/products/cwsa9suogdcdqnxkquf4",
+        "alt": "Staklene Ograde",
+        "isMain": false,
+        "colorAssociation": null,
+        "categoryAssociation": "Aloksaza",
+        "_id": "68a9cae69a742503dd460e76"
+      }
+    ],
+    "measurements": [],
+    "catalog": {
+      "catalogNumber": "ALU-007",
+      "category": "Vrata sistemi",
+      "subcategory": "",
+      "tags": []
+    },
+    "colors": [
+      {
+        "name": " E-0 prirodna boja aluminijuma",
+        "hexCode": "#7c7b77",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-1 sampanjac",
+        "hexCode": "#6f6355",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-2 bronza",
+        "hexCode": "#927a55",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-3 tamna bronza",
+        "hexCode": "#84623d",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-4 braon",
+        "hexCode": "#594840",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "E-5 crna",
+        "hexCode": "#2c251d",
+        "category": "Aloksaza",
+        "available": true
+      },
+      {
+        "name": "RAL 7016",
+        "hexCode": "#383e42",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9010",
+        "hexCode": "#f1ece1",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9006",
+        "hexCode": "#a1a1a0",
+        "category": "Plastifikacija",
+        "available": true
+      },
+      {
+        "name": "RAL 9005",
+        "hexCode": "#0e0e10",
+        "category": "Plastifikacija",
+        "available": true
+      }
+    ],
+    "sizes": [],
+    "price": {
+      "amount": 123,
+      "currency": "RSD"
+    },
+    "availability": {
+      "inStock": true,
+      "quantity": 0
+    },
+    "isActive": true,
+    "isHidden": false,
+    "catalogPdf": {
+      "url": null,
+      "downloadUrl": null,
+      "publicId": null,
+      "filename": null,
+      "uploadedAt": null
+    },
+    "createdAt": "2025-08-15T15:57:09.871Z",
+    "updatedAt": "2025-08-23T14:06:30.463Z",
+    "__v": 0,
+    "plastificationTypes": {
+      "sjajna": true,
+      "matt": true,
+      "strukturalna": true,
+      "showOnProduct": true
+    }
+  }
+]

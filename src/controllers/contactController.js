@@ -2,24 +2,38 @@ const { uploadImage, deleteImage } = require('../config/cloudinary');
 const nodemailer = require('nodemailer');
 const SiteSettings = require('../models/SiteSettings');
 
-// Gmail SMTP configuration
+// SMTP configuration
 const createTransporter = () => {
   // Check if email credentials are configured
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     throw new Error('Email credentials not configured. Please set EMAIL_USER and EMAIL_PASS in .env file');
   }
 
+  // Check if SMTP host is configured
+  if (!process.env.EMAIL_HOST) {
+    throw new Error('Email host not configured. Please set EMAIL_HOST in .env file');
+  }
+
   console.log('Creating email transporter with:', {
-    service: process.env.EMAIL_SERVICE || 'gmail',
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT || 587,
+    secure: process.env.EMAIL_SECURE === 'true',
     user: process.env.EMAIL_USER ? `${process.env.EMAIL_USER.substring(0, 3)}***` : 'NOT SET',
     pass: process.env.EMAIL_PASS ? '***CONFIGURED***' : 'NOT SET'
   });
 
   return nodemailer.createTransport({
-    service: process.env.EMAIL_SERVICE || 'gmail',
+    host: process.env.EMAIL_HOST,
+    port: parseInt(process.env.EMAIL_PORT) || 587,
+    secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
+    },
+    tls: {
+      // Accept self-signed certificates and hostname mismatches
+      rejectUnauthorized: false,
+      servername: process.env.EMAIL_HOST
     },
     debug: true, // Enable debug output
     logger: true // Log to console
@@ -118,7 +132,7 @@ const submitContactForm = async (req, res) => {
       console.log('Sending notification email to company...');
       const notificationResult = await transporter.sendMail({
         from: process.env.EMAIL_USER,
-        to: siteSettings.companyEmail || process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER, // Send notification to the same email that's configured for sending
         subject: `Nova poruka: ${subject}`,
         html: emailBody
       });

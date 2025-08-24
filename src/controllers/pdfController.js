@@ -44,6 +44,14 @@ const uploadCatalogPdf = async (req, res) => {
       });
     }
 
+    // Check file size and warn if it might be too large for Cloudinary
+    const fileSizeMB = req.file.size / (1024 * 1024);
+    console.log(`PDF file size: ${fileSizeMB.toFixed(2)} MB`);
+    
+    if (fileSizeMB > 10) {
+      console.warn(`Large PDF file detected (${fileSizeMB.toFixed(2)} MB). Cloudinary free plan has 10MB limit.`);
+    }
+
     // Delete existing catalog PDF if exists
     if (product.catalogPdf && product.catalogPdf.publicId) {
       try {
@@ -56,9 +64,27 @@ const uploadCatalogPdf = async (req, res) => {
 
     // Upload new PDF to Cloudinary
     console.log('Uploading PDF to Cloudinary...');
-    const uploadResult = await uploadPdf(req.file.buffer, {
-      public_id: `catalog_${id}_${Date.now()}`
-    });
+    
+    let uploadResult;
+    try {
+      uploadResult = await uploadPdf(req.file.buffer, {
+        public_id: `catalog_${id}_${Date.now()}`
+      });
+    } catch (uploadError) {
+      console.error('Cloudinary upload failed:', uploadError);
+      
+      // If it's a file size error, provide specific guidance
+      if (uploadError.message && uploadError.message.includes('File size too large')) {
+        return res.status(400).json({
+          success: false,
+          message: `PDF file is too large (${fileSizeMB.toFixed(2)} MB). Please compress the PDF to under 10MB or contact support for larger file uploads.`,
+          details: uploadError.message
+        });
+      }
+      
+      // Re-throw other errors
+      throw uploadError;
+    }
     
     console.log('Upload successful:', {
       publicId: uploadResult.public_id,

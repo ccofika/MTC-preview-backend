@@ -418,6 +418,12 @@ const createProduct = async (req, res) => {
     }
 
     // Parse JSON fields if they come as strings
+    if (typeof productData.title === 'string') {
+      productData.title = JSON.parse(productData.title);
+    }
+    if (typeof productData.description === 'string') {
+      productData.description = JSON.parse(productData.description);
+    }
     if (typeof productData.measurements === 'string') {
       productData.measurements = JSON.parse(productData.measurements);
     }
@@ -510,6 +516,12 @@ const updateProduct = async (req, res) => {
     }
 
     // Parse JSON fields if they come as strings
+    if (typeof updateData.title === 'string') {
+      updateData.title = JSON.parse(updateData.title);
+    }
+    if (typeof updateData.description === 'string') {
+      updateData.description = JSON.parse(updateData.description);
+    }
     if (typeof updateData.measurements === 'string') {
       updateData.measurements = JSON.parse(updateData.measurements);
     }
@@ -620,24 +632,23 @@ const uploadCatalogPdf = async (req, res) => {
     // Delete existing catalog PDF if exists
     if (product.catalogPdf && product.catalogPdf.publicId) {
       try {
-        await deleteImage(product.catalogPdf.publicId);
+        await deleteResource(product.catalogPdf.publicId);
       } catch (deleteError) {
         console.error('Old catalog PDF deletion error:', deleteError);
       }
     }
 
     // Upload new PDF to Cloudinary
-    const uploadResult = await uploadImage(
+    const uploadResult = await uploadPdf(
       req.file.buffer,
       {
         folder: 'nissal/catalogs',
-        resource_type: 'raw', // For PDF files
-        format: 'pdf'
+        public_id: `${product._id}_catalog_${Date.now()}`
       }
     );
 
     // Generate proper PDF URL
-    const pdfUrl = getPdfUrl(uploadResult.public_id);
+    const pdfUrl = getPdfViewUrl(uploadResult.public_id);
     
     // Update product with catalog PDF info
     const updatedProduct = await Product.findByIdAndUpdate(
@@ -692,7 +703,7 @@ const deleteCatalogPdf = async (req, res) => {
 
     // Delete PDF from Cloudinary
     try {
-      await deleteImage(product.catalogPdf.publicId);
+      await deleteResource(product.catalogPdf.publicId);
     } catch (deleteError) {
       console.error('Catalog PDF deletion error:', deleteError);
     }
@@ -892,11 +903,26 @@ const associateImageWithColor = async (req, res) => {
 
     // Validate color name (if provided, it should exist in colors array)
     if (colorName && colorName !== '') {
-      const colorExists = product.colors.some(color => color.name === colorName);
+      // Debug logs
+      console.log('Received colorName:', colorName, typeof colorName);
+      console.log('Product colors:', product.colors?.map(c => ({ name: c.name, type: typeof c.name })));
+      
+      const colorExists = product.colors.some(color => {
+        // Compare with Serbian name since that's what frontend sends
+        const colorNameSr = color.name?.sr || color.name;
+        const isMatch = colorNameSr === colorName;
+        console.log(`Comparing "${colorNameSr}" (${typeof colorNameSr}) === "${colorName}" (${typeof colorName}): ${isMatch}`);
+        return isMatch;
+      });
+      
       if (!colorExists) {
         return res.status(400).json({
           success: false,
-          message: 'Color not found in product colors'
+          message: 'Color not found in product colors',
+          debug: {
+            receivedColorName: colorName,
+            availableColors: product.colors?.map(c => c.name?.sr || c.name)
+          }
         });
       }
     }
@@ -1054,7 +1080,7 @@ const downloadCatalogPdf = async (req, res) => {
     }
 
     // Generate download URL with attachment flag
-    const downloadUrl = getPdfUrl(product.catalogPdf.publicId, true);
+    const downloadUrl = getPdfDownloadUrl(product.catalogPdf.publicId);
     
     // Return redirect to the download URL
     res.redirect(downloadUrl);

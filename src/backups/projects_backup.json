@@ -1,0 +1,77 @@
+[
+  {
+    "_id": "6893b43af896156b74f17f25",
+    "title": "Moderna poslovno-stambena zgrada",
+    "description": "Ovaj objekat kombinuje uredske i stambene jedinice u modernoj urbanoj zoni. Aluminijumski fasadni sistemi omogućili su elegantan i profesionalan izgled objekta, sa velikim staklenim površinama koje obezbeđuju prirodnu svetlost i savremenu estetiku. Savršeno rešenje za gradsku arhitekturu koja zahteva funkcionalnost i prepoznatljiv dizajn.",
+    "category": "Uredski",
+    "client": "",
+    "location": "",
+    "completionDate": "2023-12-06T00:00:00.000Z",
+    "tags": [],
+    "featured": true,
+    "isActive": true,
+    "gallery": [
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1754513027/nissal/projects/ehgo0vtczlpva2ours3s.jpg",
+        "publicId": "nissal/projects/ehgo0vtczlpva2ours3s",
+        "alt": "#1",
+        "isMain": true,
+        "order": 0,
+        "_id": "6893be83603fb9f8dd8be3eb"
+      }
+    ],
+    "createdAt": "2025-08-06T19:59:54.852Z",
+    "updatedAt": "2025-08-06T20:53:05.321Z",
+    "__v": 0
+  },
+  {
+    "_id": "6893b458f896156b74f17f36",
+    "title": "Urbana rezidencija sa crnom fasadom",
+    "description": "Ova višespratna porodična kuća u urbanom ambijentu koristi tamne aluminijumske profile koji u kontrastu sa staklom stvaraju moćnu, modernu fasadu. Sistem nudi odličnu termo i zvučnu izolaciju, a istovremeno omogućava elegantno otvaranje prostora prema dvorištu i ulici. Primer kako aluminijum može oblikovati karakter savremene stambene arhitekture.",
+    "category": "Stambeni",
+    "client": "",
+    "location": "",
+    "completionDate": "2024-11-04T00:00:00.000Z",
+    "tags": [],
+    "featured": false,
+    "isActive": true,
+    "gallery": [
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1754513044/nissal/projects/uxli8jyakfsukpyoigvq.jpg",
+        "publicId": "nissal/projects/uxli8jyakfsukpyoigvq",
+        "alt": "#3",
+        "isMain": true,
+        "order": 0,
+        "_id": "6893be95603fb9f8dd8be3fc"
+      }
+    ],
+    "createdAt": "2025-08-06T20:00:24.440Z",
+    "updatedAt": "2025-08-06T20:52:40.142Z",
+    "__v": 0
+  },
+  {
+    "_id": "6893b475f896156b74f17f43",
+    "title": "Minimalistička javna ustanova sa staklenom fasadom",
+    "description": "Objekat izraženih čistih linija i jednostavne betonske forme predstavlja savremen pristup projektovanju javnih ustanova – poput biblioteka, galerija ili kulturnih centara. Dominantna aluminijumska staklena fasada omogućava obilje prirodnog svetla i vizuelnu otvorenost objekta. Korišćeni aluminijumski sistemi MTC Konstruckije doprinose stabilnosti, dugotrajnosti i lakoći održavanja.",
+    "category": "Javni",
+    "client": "",
+    "location": "",
+    "completionDate": "2024-12-01T00:00:00.000Z",
+    "tags": [],
+    "featured": false,
+    "isActive": true,
+    "gallery": [
+      {
+        "url": "https://res.cloudinary.com/dr9mupavb/image/upload/v1754513055/nissal/projects/dnficedyazwacn00swsg.jpg",
+        "publicId": "nissal/projects/dnficedyazwacn00swsg",
+        "alt": "#4",
+        "isMain": true,
+        "order": 0,
+        "_id": "6893bea0603fb9f8dd8be40b"
+      }
+    ],
+    "createdAt": "2025-08-06T20:00:53.623Z",
+    "updatedAt": "2025-08-06T20:53:19.407Z",
+    "__v": 0
+  }
+]

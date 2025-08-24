@@ -320,6 +320,21 @@ const createProject = async (req, res) => {
     }
 
     // Parse JSON fields if they come as strings
+    if (typeof projectData.title === 'string') {
+      projectData.title = JSON.parse(projectData.title);
+    }
+    if (typeof projectData.description === 'string') {
+      projectData.description = JSON.parse(projectData.description);
+    }
+    if (typeof projectData.client === 'string') {
+      projectData.client = JSON.parse(projectData.client);
+    }
+    if (typeof projectData.location === 'string') {
+      projectData.location = JSON.parse(projectData.location);
+    }
+    if (typeof projectData.category === 'string') {
+      projectData.category = JSON.parse(projectData.category);
+    }
     if (typeof projectData.tags === 'string') {
       projectData.tags = JSON.parse(projectData.tags);
     }
@@ -395,6 +410,21 @@ const updateProject = async (req, res) => {
     }
 
     // Parse JSON fields if they come as strings
+    if (typeof updateData.title === 'string') {
+      updateData.title = JSON.parse(updateData.title);
+    }
+    if (typeof updateData.description === 'string') {
+      updateData.description = JSON.parse(updateData.description);
+    }
+    if (typeof updateData.client === 'string') {
+      updateData.client = JSON.parse(updateData.client);
+    }
+    if (typeof updateData.location === 'string') {
+      updateData.location = JSON.parse(updateData.location);
+    }
+    if (typeof updateData.category === 'string') {
+      updateData.category = JSON.parse(updateData.category);
+    }
     if (typeof updateData.tags === 'string') {
       updateData.tags = JSON.parse(updateData.tags);
     }

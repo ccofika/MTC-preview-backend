@@ -424,8 +424,8 @@ const createProduct = async (req, res) => {
     if (typeof productData.description === 'string') {
       productData.description = JSON.parse(productData.description);
     }
-    if (typeof productData.measurements === 'string') {
-      productData.measurements = JSON.parse(productData.measurements);
+    if (typeof productData.measurementGroups === 'string') {
+      productData.measurementGroups = JSON.parse(productData.measurementGroups);
     }
     if (typeof productData.catalog === 'string') {
       productData.catalog = JSON.parse(productData.catalog);
@@ -448,6 +448,8 @@ const createProduct = async (req, res) => {
     
     // Debug log
     console.log('Received plastificationTypes:', productData.plastificationTypes);
+    console.log('Received catalog:', productData.catalog);
+    console.log('Category structure:', productData.catalog?.category);
 
     const product = new Product(productData);
     const savedProduct = await product.save();
@@ -522,8 +524,8 @@ const updateProduct = async (req, res) => {
     if (typeof updateData.description === 'string') {
       updateData.description = JSON.parse(updateData.description);
     }
-    if (typeof updateData.measurements === 'string') {
-      updateData.measurements = JSON.parse(updateData.measurements);
+    if (typeof updateData.measurementGroups === 'string') {
+      updateData.measurementGroups = JSON.parse(updateData.measurementGroups);
     }
     if (typeof updateData.catalog === 'string') {
       updateData.catalog = JSON.parse(updateData.catalog);
@@ -546,6 +548,8 @@ const updateProduct = async (req, res) => {
     
     // Debug log
     console.log('Updating plastificationTypes:', updateData.plastificationTypes);
+    console.log('Updating catalog:', updateData.catalog);
+    console.log('Updating category structure:', updateData.catalog?.category);
 
     const updatedProduct = await Product.findByIdAndUpdate(
       id,

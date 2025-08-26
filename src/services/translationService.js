@@ -5,6 +5,21 @@ const openai = new OpenAI({
 });
 
 class TranslationService {
+  // Helper function to determine if a value contains translatable text
+  containsTranslatableText(value) {
+    if (!value || typeof value !== 'string') return false;
+    
+    // Remove common units and numbers to see if meaningful text remains
+    const cleanedValue = value
+      .replace(/\d+(\.\d+)?/g, '') // Remove numbers
+      .replace(/\b(mm|cm|m|kg|g|W|m²K|°C|%|Hz|V|A)\b/gi, '') // Remove units
+      .replace(/[.,;:\-\s]/g, '') // Remove punctuation and spaces
+      .trim();
+    
+    // If there's still meaningful text left, it should be translated
+    return cleanedValue.length > 2;
+  }
+
   async translateText(text, fromLanguage, toLanguage) {
     try {
       const languageMap = {
@@ -115,6 +130,62 @@ ${text}`;
           }
         }
         updates.sizes = updatedSizes;
+      }
+
+      // Translate measurementGroups
+      if (product.measurementGroups && product.measurementGroups.length > 0) {
+        const updatedMeasurementGroups = [...product.measurementGroups];
+        for (let groupIndex = 0; groupIndex < updatedMeasurementGroups.length; groupIndex++) {
+          const group = updatedMeasurementGroups[groupIndex];
+          
+          // Translate group title
+          for (const lang of targetLanguages) {
+            if (!group.groupTitle[lang] && group.groupTitle.sr) {
+              updatedMeasurementGroups[groupIndex].groupTitle[lang] = await this.translateText(group.groupTitle.sr, 'sr', lang);
+            }
+          }
+          
+          // Translate measurement names and values within group
+          if (group.measurements && group.measurements.length > 0) {
+            for (let measurementIndex = 0; measurementIndex < group.measurements.length; measurementIndex++) {
+              const measurement = group.measurements[measurementIndex];
+              
+              // Translate measurement names
+              for (const lang of targetLanguages) {
+                if (!measurement.name[lang] && measurement.name.sr) {
+                  updatedMeasurementGroups[groupIndex].measurements[measurementIndex].name[lang] = await this.translateText(measurement.name.sr, 'sr', lang);
+                }
+              }
+              
+              // Translate measurement values if they contain text (not just numbers/units)
+              if (measurement.value && typeof measurement.value === 'string') {
+                // Check if value contains more than just numbers, units, and basic symbols
+                const isTextValue = this.containsTranslatableText(measurement.value);
+                
+                if (isTextValue) {
+                  // Create multilingual value object if it doesn't exist
+                  if (typeof updatedMeasurementGroups[groupIndex].measurements[measurementIndex].value === 'string') {
+                    const originalValue = updatedMeasurementGroups[groupIndex].measurements[measurementIndex].value;
+                    updatedMeasurementGroups[groupIndex].measurements[measurementIndex].value = {
+                      sr: originalValue,
+                      en: null,
+                      de: null
+                    };
+                  }
+                  
+                  // Translate value to target languages
+                  for (const lang of targetLanguages) {
+                    const valueObj = updatedMeasurementGroups[groupIndex].measurements[measurementIndex].value;
+                    if (typeof valueObj === 'object' && !valueObj[lang] && valueObj.sr) {
+                      updatedMeasurementGroups[groupIndex].measurements[measurementIndex].value[lang] = await this.translateText(valueObj.sr, 'sr', lang);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        updates.measurementGroups = updatedMeasurementGroups;
       }
 
       // Apply updates

@@ -1,16 +1,42 @@
 const mongoose = require('mongoose');
 
-const measurementSchema = new mongoose.Schema({
-  size: {
-    type: String,
-    required: true
+const measurementItemSchema = new mongoose.Schema({
+  name: {
+    sr: {
+      type: String,
+      required: true
+    },
+    en: {
+      type: String,
+      default: null
+    },
+    de: {
+      type: String,
+      default: null
+    }
   },
-  dimensions: {
-    length: Number,
-    width: Number,
-    height: Number,
-    weight: Number
+  value: {
+    type: mongoose.Schema.Types.Mixed, // Can be string or multilingual object
+    required: true
   }
+}, { _id: false });
+
+const measurementGroupSchema = new mongoose.Schema({
+  groupTitle: {
+    sr: {
+      type: String,
+      required: true
+    },
+    en: {
+      type: String,
+      default: null
+    },
+    de: {
+      type: String,
+      default: null
+    }
+  },
+  measurements: [measurementItemSchema]
 }, { _id: false });
 
 const colorSchema = new mongoose.Schema({
@@ -155,7 +181,7 @@ const productSchema = new mongoose.Schema({
       default: 'Aloksaza' // Default to Aloksaza category, null means generic
     }
   }],
-  measurements: [measurementSchema],
+  measurementGroups: [measurementGroupSchema],
   catalog: {
     catalogNumber: {
       type: String,

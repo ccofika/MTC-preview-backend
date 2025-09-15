@@ -4,9 +4,9 @@ const projectSchema = new mongoose.Schema({
   title: {
     sr: {
       type: String,
-      required: [true, 'Project title (Serbian) is required'],
       trim: true,
-      maxlength: [200, 'Title cannot exceed 200 characters']
+      maxlength: [200, 'Title cannot exceed 200 characters'],
+      default: null
     },
     en: {
       type: String,
@@ -24,9 +24,9 @@ const projectSchema = new mongoose.Schema({
   description: {
     sr: {
       type: String,
-      required: [true, 'Project description (Serbian) is required'],
       trim: true,
-      maxlength: [3000, 'Description cannot exceed 3000 characters']
+      maxlength: [3000, 'Description cannot exceed 3000 characters'],
+      default: null
     },
     en: {
       type: String,
@@ -66,7 +66,7 @@ const projectSchema = new mongoose.Schema({
   category: {
     sr: {
       type: String,
-      required: true
+      default: null
     },
     en: {
       type: String,

@@ -39,7 +39,8 @@ app.use(morgan(logFormat, {
 app.use(cors({
   origin: [
     process.env.CLIENT_URL || 'http://localhost:3000',
-    'https://mtc-preview-opal.vercel.app'
+    'https://mtc-preview-opal.vercel.app',
+    'https://www.nissal.co.rs'
   ],
   credentials: true
 }));

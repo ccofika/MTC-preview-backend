@@ -12,7 +12,9 @@ const {
   getProjectsByCategory,
   createProject,
   updateProject,
-  deleteProject
+  deleteProject,
+  reorderGalleryImages,
+  deleteProjectImage
 } = require('../controllers/projectController');
 
 // Public routes
@@ -25,8 +27,10 @@ router.get('/category', getProjectsByCategory);
 router.get('/:id', getProjectById);
 
 // Protected admin routes
-router.post('/', auth, upload.array('images', 10), createProject);
-router.put('/:id', auth, upload.array('images', 10), updateProject);
+router.post('/', auth, upload.array('images', 25), createProject);
+router.put('/:id', auth, upload.array('images', 25), updateProject);
+router.put('/:id/reorder-images', auth, reorderGalleryImages);
+router.delete('/:id/images/:imageIndex', auth, deleteProjectImage);
 router.delete('/:id', auth, deleteProject);
 
 module.exports = router;

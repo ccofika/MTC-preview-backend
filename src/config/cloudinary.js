@@ -11,14 +11,18 @@ const uploadOptions = {
     folder: 'nissal/products',
     transformation: [
       { quality: 'auto:good' },
-      { fetch_format: 'auto' }
+      { fetch_format: 'auto' },
+      { flags: 'progressive' },
+      { width: 1920, height: 1080, crop: 'limit' }
     ]
   },
   projects: {
     folder: 'nissal/projects',
     transformation: [
       { quality: 'auto:good' },
-      { fetch_format: 'auto' }
+      { fetch_format: 'auto' },
+      { flags: 'progressive' },
+      { width: 1920, height: 1080, crop: 'limit' }
     ]
   },
   attachments: {

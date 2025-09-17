@@ -6,7 +6,7 @@ const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
     fileSize: 50 * 1024 * 1024, // 50MB limit per file (increased for PDF catalogs)
-    files: 10 // Multiple file upload (max 10 files)
+    files: 25 // Multiple file upload (max 25 files)
   },
   fileFilter: (req, file, cb) => {
     // Allowed file types
@@ -47,7 +47,7 @@ const handleUploadError = (error, req, res, next) => {
     if (error.code === 'LIMIT_FILE_COUNT') {
       return res.status(400).json({
         success: false,
-        message: 'Too many files. Maximum 10 files are allowed.'
+        message: 'Too many files. Maximum 25 files are allowed.'
       });
     }
     if (error.code === 'LIMIT_UNEXPECTED_FILE') {

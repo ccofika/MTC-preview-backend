@@ -40,8 +40,6 @@ const mockProducts = [
     ],
     catalog: {
       catalogNumber: 'ALU-PRO-001',
-      category: 'Prozorski sistemi',
-      subcategory: 'Termoprekid sistemi',
       tags: ['aluminum', 'prozor', 'energetska-efikasnost', 'termoprekid']
     },
     colors: [

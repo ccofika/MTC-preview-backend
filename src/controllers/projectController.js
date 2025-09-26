@@ -18,9 +18,6 @@ const getProjects = async (req, res) => {
     // Build filter object
     const filter = { isActive: true };
     
-    if (category) {
-      filter.category = { $regex: category, $options: 'i' };
-    }
     
     if (year) {
       const startDate = new Date(`${year}-01-01`);
@@ -67,7 +64,6 @@ const getProjects = async (req, res) => {
           pages: Math.ceil(total / parseInt(limit))
         },
         filters: {
-          category,
           year,
           featured,
           search
@@ -139,24 +135,6 @@ const getFeaturedProjects = async (req, res) => {
   }
 };
 
-// Get all categories
-const getCategories = async (req, res) => {
-  try {
-    const categories = await Project.distinct('category', { isActive: true });
-
-    res.json({
-      success: true,
-      data: categories.filter(Boolean)
-    });
-
-  } catch (error) {
-    console.error('Get categories error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch categories'
-    });
-  }
-};
 
 // Get available years from completion dates
 const getAvailableYears = async (req, res) => {
@@ -231,55 +209,6 @@ const searchProjects = async (req, res) => {
   }
 };
 
-// Get projects by category
-const getProjectsByCategory = async (req, res) => {
-  try {
-    const { category, limit = 12, page = 1 } = req.query;
-
-    if (!category) {
-      return res.status(400).json({
-        success: false,
-        message: 'Category is required'
-      });
-    }
-
-    const filter = {
-      isActive: true,
-      category: { $regex: category, $options: 'i' }
-    };
-
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-
-    const projects = await Project.find(filter)
-      .sort({ completionDate: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .select('-__v');
-
-    const total = await Project.countDocuments(filter);
-
-    res.json({
-      success: true,
-      data: {
-        projects,
-        category,
-        pagination: {
-          page: parseInt(page),
-          limit: parseInt(limit),
-          total,
-          pages: Math.ceil(total / parseInt(limit))
-        }
-      }
-    });
-
-  } catch (error) {
-    console.error('Get projects by category error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch projects by category'
-    });
-  }
-};
 
 // Create project (admin)
 const createProject = async (req, res) => {
@@ -342,9 +271,6 @@ const createProject = async (req, res) => {
     }
     if (typeof projectData.location === 'string') {
       projectData.location = JSON.parse(projectData.location);
-    }
-    if (typeof projectData.category === 'string') {
-      projectData.category = JSON.parse(projectData.category);
     }
     if (typeof projectData.tags === 'string') {
       projectData.tags = JSON.parse(projectData.tags);
@@ -445,9 +371,6 @@ const updateProject = async (req, res) => {
     }
     if (typeof updateData.location === 'string') {
       updateData.location = JSON.parse(updateData.location);
-    }
-    if (typeof updateData.category === 'string') {
-      updateData.category = JSON.parse(updateData.category);
     }
     if (typeof updateData.tags === 'string') {
       updateData.tags = JSON.parse(updateData.tags);
@@ -633,10 +556,8 @@ module.exports = {
   getProjects,
   getProjectById,
   getFeaturedProjects,
-  getCategories,
   getAvailableYears,
   searchProjects,
-  getProjectsByCategory,
   createProject,
   updateProject,
   deleteProject,

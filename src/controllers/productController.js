@@ -28,9 +28,6 @@ const getProducts = async (req, res) => {
     // Build filter object
     const filter = { isActive: true, $or: [{ isHidden: false }, { isHidden: { $exists: false } }] };
     
-    if (category) {
-      filter['catalog.category'] = { $regex: category, $options: 'i' };
-    }
     
     if (colors) {
       const colorArray = Array.isArray(colors) ? colors : [colors];
@@ -87,7 +84,6 @@ const getProducts = async (req, res) => {
           pages: Math.ceil(total / parseInt(limit))
         },
         filters: {
-          category,
           colors,
           sizes,
           minPrice,
@@ -196,24 +192,6 @@ const getFeaturedProducts = async (req, res) => {
   }
 };
 
-// Get all categories
-const getCategories = async (req, res) => {
-  try {
-    const categories = await Product.distinct('catalog.category', { isActive: true });
-
-    res.json({
-      success: true,
-      data: categories.filter(Boolean)
-    });
-
-  } catch (error) {
-    console.error('Get categories error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch categories'
-    });
-  }
-};
 
 // Get available colors
 const getAvailableColors = async (req, res) => {
@@ -330,55 +308,6 @@ const searchProducts = async (req, res) => {
   }
 };
 
-// Get products by category
-const getProductsByCategory = async (req, res) => {
-  try {
-    const { category, limit = 12, page = 1 } = req.query;
-
-    if (!category) {
-      return res.status(400).json({
-        success: false,
-        message: 'Category is required'
-      });
-    }
-
-    const filter = {
-      isActive: true,
-      'catalog.category': { $regex: category, $options: 'i' }
-    };
-
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-
-    const products = await Product.find(filter)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .select('-__v');
-
-    const total = await Product.countDocuments(filter);
-
-    res.json({
-      success: true,
-      data: {
-        products,
-        category,
-        pagination: {
-          page: parseInt(page),
-          limit: parseInt(limit),
-          total,
-          pages: Math.ceil(total / parseInt(limit))
-        }
-      }
-    });
-
-  } catch (error) {
-    console.error('Get products by category error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch products by category'
-    });
-  }
-};
 
 // Create product (admin)
 const createProduct = async (req, res) => {
@@ -957,61 +886,6 @@ const associateImageWithColor = async (req, res) => {
   }
 };
 
-// Associate image with category (admin)
-const associateImageWithCategory = async (req, res) => {
-  try {
-    const { id } = req.params; // product id
-    const { imageIndex, category } = req.body;
-
-    const product = await Product.findById(id);
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        message: 'Product not found'
-      });
-    }
-
-    // Validate image index
-    if (imageIndex < 0 || imageIndex >= product.gallery.length) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid image index'
-      });
-    }
-
-    // Validate category (if provided, it should be one of the allowed values)
-    if (category && category !== '' && !['Aloksaza', 'Plastifikacija'].includes(category)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid category. Must be "Aloksaza" or "Plastifikacija"'
-      });
-    }
-
-    // Update the specific image's category association
-    const updatedProduct = await Product.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          [`gallery.${imageIndex}.categoryAssociation`]: category || null
-        }
-      },
-      { new: true, runValidators: true }
-    );
-
-    res.json({
-      success: true,
-      message: 'Image-category association updated successfully',
-      data: updatedProduct
-    });
-
-  } catch (error) {
-    console.error('Associate image with category error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to associate image with category'
-    });
-  }
-};
 
 // Get images by color for a product
 const getImagesByColor = async (req, res) => {
@@ -1221,11 +1095,9 @@ module.exports = {
   getProducts,
   getProductById,
   getFeaturedProducts,
-  getCategories,
   getAvailableColors,
   getAvailableSizes,
   searchProducts,
-  getProductsByCategory,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -1237,7 +1109,6 @@ module.exports = {
   fixPdfUrls,
   downloadCatalogPdf,
   associateImageWithColor,
-  associateImageWithCategory,
   getImagesByColor,
   reorderGalleryImages,
   deleteImage

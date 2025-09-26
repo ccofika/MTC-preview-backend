@@ -9,8 +9,6 @@ const mockProducts = [
     gallery: [],
     catalog: {
       catalogNumber: 'PVC-STD-001',
-      category: 'Prozorski sistemi',
-      subcategory: 'PVC Prozori',
       tags: ['pvc', 'prozor', 'standard', 'energetski efikasan']
     },
     colors: [

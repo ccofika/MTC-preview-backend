@@ -6,10 +6,8 @@ const {
   getProjects,
   getProjectById,
   getFeaturedProjects,
-  getCategories,
   getAvailableYears,
   searchProjects,
-  getProjectsByCategory,
   createProject,
   updateProject,
   deleteProject,
@@ -20,10 +18,8 @@ const {
 // Public routes
 router.get('/', getProjects);
 router.get('/featured', getFeaturedProjects);
-router.get('/categories', getCategories);
 router.get('/years', getAvailableYears);
 router.get('/search', searchProjects);
-router.get('/category', getProjectsByCategory);
 router.get('/:id', getProjectById);
 
 // Protected admin routes

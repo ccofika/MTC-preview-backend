@@ -63,20 +63,6 @@ const projectSchema = new mongoose.Schema({
       default: 0
     }
   }],
-  category: {
-    sr: {
-      type: String,
-      default: null
-    },
-    en: {
-      type: String,
-      default: null
-    },
-    de: {
-      type: String,
-      default: null
-    }
-  },
   client: {
     sr: {
       type: String,
@@ -132,7 +118,6 @@ const projectSchema = new mongoose.Schema({
 });
 
 projectSchema.index({ title: 'text', description: 'text' });
-projectSchema.index({ category: 1 });
 projectSchema.index({ featured: 1 });
 projectSchema.index({ completionDate: -1 });
 

@@ -13,16 +13,17 @@ const seedSiteSettings = async () => {
 
     // Create default site settings
     const defaultSettings = new SiteSettings({
-      companyEmail: 'info@nissal.rs',
-      companyPhone: '+381 11 123 4567',
+      companyEmail: 'constructions@mtc.co.rs',
+      companyPhone: '+381 062 213 492',
+      companyPhoneTechnical: '+381 065 94 88 576',
       companyAddress: {
-        street: 'Industrijska zona bb',
-        city: '11000 Beograd',
+        street: 'Gandijeva 235/13',
+        city: '11073 Beograd',
         country: 'Srbija'
       },
       workingHours: {
         weekdays: 'Ponedeljak-Petak: 08:00-16:00',
-        saturday: 'Subota: 08:00-12:00',
+        saturday: 'Subota: Zatvoreno',
         sunday: 'Nedelja: Zatvoreno'
       },
       socialMedia: {

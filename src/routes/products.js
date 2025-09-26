@@ -9,11 +9,9 @@ const auth = require('../middleware/auth');
 // Public routes
 router.get('/', productController.getProducts);
 router.get('/featured', productController.getFeaturedProducts);
-router.get('/categories', productController.getCategories);
 router.get('/colors', productController.getAvailableColors);
 router.get('/sizes', productController.getAvailableSizes);
 router.get('/search', productController.searchProducts);
-router.get('/category', productController.getProductsByCategory);
 router.get('/:id/catalog/download', pdfController.downloadCatalogPdf);
 router.get('/:id/images/by-color', productController.getImagesByColor);
 router.get('/:id', productController.getProductById);
@@ -37,8 +35,6 @@ router.patch('/:id/show', productController.showProduct);
 // Image-Color association management
 router.patch('/:id/images/associate-color', productController.associateImageWithColor);
 
-// Image-Category association management
-router.patch('/:id/images/associate-category', productController.associateImageWithCategory);
 
 // Image reordering management
 router.patch('/:id/images/reorder', productController.reorderGalleryImages);

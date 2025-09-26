@@ -42,16 +42,6 @@ async function migrateData() {
         },
         catalog: {
           catalogNumber: product.catalog.catalogNumber,
-          category: {
-            sr: product.catalog.category,
-            en: null,
-            de: null
-          },
-          subcategory: {
-            sr: product.catalog.subcategory || null,
-            en: null,
-            de: null
-          },
           tags: {
             sr: product.catalog.tags || [],
             en: [],
@@ -101,11 +91,6 @@ async function migrateData() {
         },
         description: {
           sr: project.description,
-          en: null,
-          de: null
-        },
-        category: {
-          sr: project.category,
           en: null,
           de: null
         },

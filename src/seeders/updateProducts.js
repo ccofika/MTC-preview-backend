@@ -9,8 +9,6 @@ const newProducts = [
     gallery: [],
     catalog: {
       catalogNumber: 'ALT-7500',
-      category: 'Aluminijumski sistemi',
-      subcategory: 'Termoizolacioni sistemi',
       tags: ['aluminijum', 'termoizolacija', 'pasivna kuća', 'energetska efikasnost', 'ALT 7500']
     },
     colors: [
@@ -44,8 +42,6 @@ const newProducts = [
     gallery: [],
     catalog: {
       catalogNumber: 'ALS-57',
-      category: 'Aluminijumski sistemi',
-      subcategory: 'Prozorski sistemi',
       tags: ['aluminijum', 'prozor', 'termo prekid', 'energetska efikasnost', 'ALS 57']
     },
     colors: [
@@ -80,8 +76,6 @@ const newProducts = [
     gallery: [],
     catalog: {
       catalogNumber: 'ALS-57-VRATA',
-      category: 'Aluminijumski sistemi',
-      subcategory: 'Sistemi za vrata',
       tags: ['aluminijum', 'vrata', 'ALS 57', 'ulazna vrata', 'terasa vrata']
     },
     colors: [
@@ -117,8 +111,6 @@ const newProducts = [
     gallery: [],
     catalog: {
       catalogNumber: 'STGL-OGRADE',
-      category: 'Ograde i balustrade',
-      subcategory: 'Staklene ograde',
       tags: ['staklo', 'ograda', 'baluster', 'moderna', 'transparentnost']
     },
     colors: [
@@ -153,8 +145,6 @@ const newProducts = [
     gallery: [],
     catalog: {
       catalogNumber: 'ALS-4800',
-      category: 'Aluminijumski sistemi',
-      subcategory: 'Kompaktni sistemi',
       tags: ['aluminijum', 'kompaktni', 'ekonomski', 'renovacija', 'ALS 4800']
     },
     colors: [
@@ -187,8 +177,6 @@ const newProducts = [
     gallery: [],
     catalog: {
       catalogNumber: 'ALD-9100',
-      category: 'Aluminijumski sistemi',
-      subcategory: 'Sistemi za vrata',
       tags: ['aluminijum', 'vrata', 'premium', 'sigurnost', 'ALD 9100']
     },
     colors: [
@@ -239,7 +227,6 @@ const updateProducts = async () => {
     insertedProducts.forEach(product => {
       console.log(`   - ${product.title}`);
       console.log(`     Catalog: ${product.catalog.catalogNumber}`);
-      console.log(`     Category: ${product.catalog.category}`);
       console.log(`     Price: ${product.price.amount} ${product.price.currency}`);
       console.log(`     In Stock: ${product.availability.quantity} pieces`);
       console.log('');

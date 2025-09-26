@@ -58,12 +58,6 @@ const colorSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  category: {
-    type: String,
-    enum: ['Aloksaza', 'Plastifikacija'],
-    required: true,
-    default: 'Aloksaza'
-  },
   available: {
     type: Boolean,
     default: true
@@ -175,11 +169,6 @@ const productSchema = new mongoose.Schema({
       type: String,
       default: null // null means generic image, otherwise it should match a color name from colors array
     },
-    categoryAssociation: {
-      type: String,
-      enum: ['Aloksaza', 'Plastifikacija', null],
-      default: 'Aloksaza' // Default to Aloksaza category, null means generic
-    }
   }],
   measurementGroups: [measurementGroupSchema],
   catalog: {
@@ -187,34 +176,6 @@ const productSchema = new mongoose.Schema({
       type: String,
       required: true,
       unique: true
-    },
-    category: {
-      sr: {
-        type: String,
-        required: true
-      },
-      en: {
-        type: String,
-        default: null
-      },
-      de: {
-        type: String,
-        default: null
-      }
-    },
-    subcategory: {
-      sr: {
-        type: String,
-        default: null
-      },
-      en: {
-        type: String,
-        default: null
-      },
-      de: {
-        type: String,
-        default: null
-      }
     },
     tags: {
       sr: [String],
@@ -280,7 +241,6 @@ const productSchema = new mongoose.Schema({
   timestamps: true
 });
 
-productSchema.index({ 'catalog.category': 1 });
 productSchema.index({ title: 'text', description: 'text' });
 
 module.exports = mongoose.model('Product', productSchema);

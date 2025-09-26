@@ -8,24 +8,29 @@ const siteSettingsSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email'],
-    default: 'info@nissal.rs'
+    default: 'constructions@mtc.co.rs'
   },
   companyPhone: {
     type: String,
     required: [true, 'Company phone is required'],
     trim: true,
-    default: '+381 11 123 4567'
+    default: '+381 062 213 492'
+  },
+  companyPhoneTechnical: {
+    type: String,
+    trim: true,
+    default: '+381 065 94 88 576'
   },
   companyAddress: {
     street: {
       type: String,
       required: true,
-      default: 'Industrijska zona bb'
+      default: 'Gandijeva 235/13'
     },
     city: {
       type: String,
       required: true,
-      default: '11000 Beograd'
+      default: '11073 Beograd'
     },
     country: {
       type: String,
@@ -42,7 +47,7 @@ const siteSettingsSchema = new mongoose.Schema({
     },
     saturday: {
       type: String,
-      default: 'Subota: 08:00-12:00'
+      default: 'Subota: Zatvoreno'
     },
     sunday: {
       type: String,
